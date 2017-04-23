@@ -43,12 +43,6 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     }
 
     @Override
-    public List<T> findAll() {
-        return entityManager.createNamedQuery(getType().getSimpleName() + ".findAll", getType())
-                .getResultList();
-    }
-
-    @Override
     public void persist(T entity) {
         entityManager.persist(entity);
     }
@@ -59,17 +53,23 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     }
 
     @Override
+    public T findById(Id id) {
+        return entityManager.find(getType(), id);
+    }
+
+    @Override
     public void delete(T entity) {
         entityManager.remove(entity);
     }
 
     @Override
-    public T findById(Id id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<T> findAll() {
+        return entityManager.createNamedQuery(getType().getSimpleName() + ".findAll", getType())
+                .getResultList();
     }
 
     @Override
     public void deleteAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entityManager.createNamedQuery(getType().getSimpleName() + ".deleteAll", getType()).executeUpdate();
     }
 }
