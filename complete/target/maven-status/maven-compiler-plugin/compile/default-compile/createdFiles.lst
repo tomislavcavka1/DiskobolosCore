@@ -1,9 +1,12 @@
 hr\diskobolos\model\MembershipCategory.class
 hr\diskobolos\model\BankAccount.class
 hr\diskobolos\service\impl\SportServiceImpl.class
+hr\diskobolos\model\ISport.class
 hr\diskobolos\util\JSONMapper.class
+hr\diskobolos\dto\NomenclatureOfSportsDto$Value.class
 hr\diskobolos\persistence\impl\ADaoPersistenceImpl.class
 hr\diskobolos\service\IMemberRegisterService.class
+hr\diskobolos\model\INomenclatureOfSport.class
 hr\diskobolos\service\IMembershipCategoryService.class
 hr\diskobolos\service\impl\MemberRegisterServiceImpl.class
 hr\diskobolos\controller\SportController.class
@@ -12,6 +15,8 @@ hr\diskobolos\Application$1.class
 hr\diskobolos\model\NomenclatureOfSport.class
 hr\diskobolos\model\Sport.class
 hr\diskobolos\persistence\ISportPersistence.class
+hr\diskobolos\dto\SportDto.class
+hr\diskobolos\model\IIdentifier.class
 hr\diskobolos\persistence\impl\SportPersistenceImpl.class
 hr\diskobolos\service\impl\MembershipCategoryServiceImpl.class
 hr\diskobolos\model\Location.class
@@ -22,9 +27,11 @@ hr\diskobolos\model\MemberRegister.class
 hr\diskobolos\controller\Greeting.class
 hr\diskobolos\controller\GreetingController.class
 hr\diskobolos\persistence\IJpaDaoPersistence.class
+hr\diskobolos\dto\NomenclatureOfSportsDto.class
 hr\diskobolos\model\NomenclatureCategories.class
 hr\diskobolos\controller\MemberRegisterController.class
 hr\diskobolos\persistence\impl\MemberRegisterPersistenceImpl.class
+hr\diskobolos\controller\SportController$1.class
 hr\diskobolos\persistence\impl\MembershipCategoryPersistenceImpl.class
 hr\diskobolos\Application.class
 hr\diskobolos\model\BankAccountType.class

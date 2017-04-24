@@ -29,7 +29,7 @@ public class SportServiceImpl implements ISportService {
 
     @Override
     public void update(Sport entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sportPersistence.update(entity);        
     }
 
     @Override

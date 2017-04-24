@@ -8,9 +8,13 @@ package hr.diskobolos.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,20 +24,25 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "NOMENCLATURE_OF_SPORT", schema = "DISKOBOLOS")
-public class NomenclatureOfSport implements Serializable {
+public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "sport_id_seq", sequenceName = "sport_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sport_id_seq")
+    @SequenceGenerator(name = "nomenclature_of_sport_id_seq", sequenceName = "nomenclature_of_sport_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nomenclature_of_sport_id_seq")
     private Integer id;
 
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private NomenclatureCategories category;
 
     @Column(name = "CATEGORY_DESCRIPTION")
     private String categoryDescription;
 
     private String value;
+
+    @ManyToOne
+    @JoinColumn(name = "SPORT_ID", referencedColumnName = "ID")
+    private Sport sport;
 
     public Integer getId() {
         return id;
@@ -43,11 +52,11 @@ public class NomenclatureOfSport implements Serializable {
         this.id = id;
     }
 
-    public String getCategory() {
+    public NomenclatureCategories getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(NomenclatureCategories category) {
         this.category = category;
     }
 
@@ -65,5 +74,13 @@ public class NomenclatureOfSport implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Sport getSport() {
+        return sport;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 }

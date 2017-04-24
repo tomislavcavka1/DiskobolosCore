@@ -48,7 +48,7 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     }
 
     @Override
-    public void update(T entity) {
+    public void update(T entity) {        
         entityManager.merge(entity);
     }
 

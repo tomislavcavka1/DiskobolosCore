@@ -7,12 +7,12 @@ package hr.diskobolos.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SPORT", schema = "DISKOBOLOS")
 @NamedQuery(name = "Sport.findAll", query = "SELECT s FROM Sport s")
-public class Sport implements Serializable {
+public class Sport implements ISport, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
@@ -35,8 +35,7 @@ public class Sport implements Serializable {
 
     private String name;
 
-    @OneToMany(targetEntity = NomenclatureOfSport.class)
-    @JoinColumn(name = "SPORT_ID", referencedColumnName = "ID")
+    @OneToMany(targetEntity = NomenclatureOfSport.class, cascade = CascadeType.ALL, mappedBy = "sport")
     private List<NomenclatureOfSport> nomenclatureOfSports;
 
     public Integer getId() {
