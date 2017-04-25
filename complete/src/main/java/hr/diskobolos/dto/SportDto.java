@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.dto;
 
+import hr.diskobolos.model.NomenclatureOfSport;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 
@@ -16,10 +17,12 @@ public class SportDto {
 
     @NotNull
     private Integer id;
-    
+
     private String name;
 
     private List<NomenclatureOfSportsDto> nomenclatureOfSports;
+
+    private List<NomenclatureOfSport> removedNomenclatureItems;
 
     public Integer getId() {
         return id;
@@ -43,5 +46,13 @@ public class SportDto {
 
     public void setNomenclatureOfSports(List<NomenclatureOfSportsDto> nomenclatureOfSports) {
         this.nomenclatureOfSports = nomenclatureOfSports;
+    }
+
+    public List<NomenclatureOfSport> getRemovedNomenclatureItems() {
+        return removedNomenclatureItems;
+    }
+
+    public void setRemovedNomenclatureItems(List<NomenclatureOfSport> removedNomenclatureItems) {
+        this.removedNomenclatureItems = removedNomenclatureItems;
     }
 }

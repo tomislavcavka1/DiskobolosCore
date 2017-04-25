@@ -12,5 +12,5 @@ import hr.diskobolos.model.MembershipCategory;
  * @author Tomislav Čavka
  */
 public interface IMembershipCategoryPersistence extends IJpaDaoPersistence<MembershipCategory, Integer> {
-    
+
 }

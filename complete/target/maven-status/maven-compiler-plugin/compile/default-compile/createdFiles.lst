@@ -6,13 +6,16 @@ hr\diskobolos\util\JSONMapper.class
 hr\diskobolos\dto\NomenclatureOfSportsDto$Value.class
 hr\diskobolos\persistence\impl\ADaoPersistenceImpl.class
 hr\diskobolos\service\IMemberRegisterService.class
+hr\diskobolos\service\INomenclatureOfSportService.class
 hr\diskobolos\model\INomenclatureOfSport.class
+hr\diskobolos\persistence\impl\NomenclatureOfSportPersistenceImpl.class
 hr\diskobolos\service\IMembershipCategoryService.class
 hr\diskobolos\service\impl\MemberRegisterServiceImpl.class
 hr\diskobolos\controller\SportController.class
 hr\diskobolos\persistence\IMemberRegisterPersistence.class
 hr\diskobolos\Application$1.class
 hr\diskobolos\model\NomenclatureOfSport.class
+hr\diskobolos\util\ErrorHandlerUtils.class
 hr\diskobolos\model\Sport.class
 hr\diskobolos\persistence\ISportPersistence.class
 hr\diskobolos\dto\SportDto.class
@@ -27,6 +30,7 @@ hr\diskobolos\model\MemberRegister.class
 hr\diskobolos\controller\Greeting.class
 hr\diskobolos\controller\GreetingController.class
 hr\diskobolos\persistence\IJpaDaoPersistence.class
+hr\diskobolos\persistence\INomenclatureOfSportPersistence.class
 hr\diskobolos\dto\NomenclatureOfSportsDto.class
 hr\diskobolos\model\NomenclatureCategories.class
 hr\diskobolos\controller\MemberRegisterController.class
@@ -36,4 +40,5 @@ hr\diskobolos\persistence\impl\MembershipCategoryPersistenceImpl.class
 hr\diskobolos\Application.class
 hr\diskobolos\model\BankAccountType.class
 hr\diskobolos\service\IJpaDaoService.class
+hr\diskobolos\service\impl\NomenclatureOfSportServiceImpl.class
 hr\diskobolos\persistence\IMembershipCategoryPersistence.class

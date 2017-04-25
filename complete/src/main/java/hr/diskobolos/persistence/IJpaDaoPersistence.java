@@ -13,15 +13,17 @@ import java.util.List;
  */
 public interface IJpaDaoPersistence<T, Id extends Serializable> {
 
-    public void persist(T entity);
+    void persist(T entity);
 
-    public void update(T entity);
+    void update(T entity);
 
-    public T findById(Id id);
+    T findById(Id id);
 
-    public void delete(T entity);
+    void delete(T entity);
 
-    public List<T> findAll();
+    void delete(List<T> entities);
 
-    public void deleteAll();
+    List<T> findAll();
+
+    void deleteAll();
 }

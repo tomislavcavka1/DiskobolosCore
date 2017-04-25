@@ -84,11 +84,11 @@ public class MemberRegister implements Serializable {
     @JoinColumn(name = "MEMBERSHIP_CATEGORY")
     private MembershipCategory membershipCategory;
 
-    @OneToMany
+    @OneToMany(orphanRemoval=true)
     @JoinColumn(name = "MEMBER_REGISTER_ID")
     private List<Email> emails;
 
-    @OneToMany
+    @OneToMany(orphanRemoval=true)
     @JoinColumn(name = "MEMBER_REGISTER_ID")
     private List<BankAccount> bankAccounts;
 

@@ -12,4 +12,5 @@ import hr.diskobolos.model.Sport;
  * @author Tomislav Čavka
  */
 public interface ISportService extends IJpaDaoService<Sport, Integer> {
+
 }

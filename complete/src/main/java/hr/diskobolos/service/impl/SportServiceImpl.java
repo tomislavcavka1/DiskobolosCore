@@ -29,7 +29,7 @@ public class SportServiceImpl implements ISportService {
 
     @Override
     public void update(Sport entity) {
-        sportPersistence.update(entity);        
+        sportPersistence.update(entity);
     }
 
     @Override
@@ -39,6 +39,11 @@ public class SportServiceImpl implements ISportService {
 
     @Override
     public void delete(Sport entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(List<Sport> entities) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

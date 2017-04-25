@@ -48,6 +48,11 @@ public class MembershipCategoryServiceImpl implements IMembershipCategoryService
     }
 
     @Override
+    public void delete(List<MembershipCategory> entities) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public void deleteAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

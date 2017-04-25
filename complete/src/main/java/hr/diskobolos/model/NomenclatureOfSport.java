@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,6 +26,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "NOMENCLATURE_OF_SPORT", schema = "DISKOBOLOS")
+@NamedQueries({
+    @NamedQuery(name = "NomenclatureOfSport.deleteItems", query = "DELETE FROM NomenclatureOfSport n WHERE n IN :forDeletion")})
 public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
 
     @Id

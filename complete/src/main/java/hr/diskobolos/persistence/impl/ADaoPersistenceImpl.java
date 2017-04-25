@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +49,7 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     }
 
     @Override
-    public void update(T entity) {        
+    public void update(T entity) {
         entityManager.merge(entity);
     }
 
@@ -60,6 +61,15 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     @Override
     public void delete(T entity) {
         entityManager.remove(entity);
+    }
+
+    @Override
+    public void delete(List<T> entities) {
+        if (!entities.isEmpty()) {
+            Query query = entityManager.createNamedQuery(getType().getSimpleName() + ".deleteItems");
+            query.setParameter("forDeletion", entities);
+            query.executeUpdate();
+        }
     }
 
     @Override

@@ -11,7 +11,9 @@ import hr.diskobolos.model.NomenclatureCategories;
 import static hr.diskobolos.model.NomenclatureCategories.*;
 import hr.diskobolos.model.NomenclatureOfSport;
 import hr.diskobolos.model.Sport;
+import hr.diskobolos.service.INomenclatureOfSportService;
 import hr.diskobolos.service.ISportService;
+import hr.diskobolos.util.ErrorHandlerUtils;
 import hr.diskobolos.util.JSONMapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +41,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/sports", produces = {"application/json; charset=utf-8"})
 public class SportController {
 
+    private static final Logger logger = LoggerFactory.getLogger(SportController.class);
+
     @Autowired
     ISportService sportService;
+
+    @Autowired
+    INomenclatureOfSportService nomenclatureOfSportService;
 
     @Autowired
     JSONMapper jsonMapper;
@@ -105,11 +114,15 @@ public class SportController {
             }
             sport.setNomenclatureOfSports(nomenclatureOfSports);
             sportService.update(sport);
+            if (sportDto.getRemovedNomenclatureItems() != null) {
+                nomenclatureOfSportService.delete(sportDto.getRemovedNomenclatureItems());
+            }
             response.setStatus(HttpServletResponse.SC_OK);
+
             return new JSONObject().put("result", 200).toString();
         } catch (Exception e) {
-//            return ErrorHandlerUtils.handleAjaxError(request, response);
-            return null;
+            logger.error("Error during editing sport data: ", e.getMessage());
+            return ErrorHandlerUtils.handleAjaxError(request, response);
         }
     }
 }

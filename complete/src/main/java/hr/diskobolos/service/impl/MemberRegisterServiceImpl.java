@@ -43,6 +43,11 @@ public class MemberRegisterServiceImpl implements IMemberRegisterService {
     }
 
     @Override
+    public void delete(List<MemberRegister> entities) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public List<MemberRegister> findAll() {
         return membershipCategoryPersistence.findAll();
     }

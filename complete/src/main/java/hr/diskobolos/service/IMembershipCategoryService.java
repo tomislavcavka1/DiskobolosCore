@@ -12,4 +12,5 @@ import hr.diskobolos.model.MembershipCategory;
  * @author Tomislav Čavka
  */
 public interface IMembershipCategoryService extends IJpaDaoService<MembershipCategory, Integer> {
+
 }

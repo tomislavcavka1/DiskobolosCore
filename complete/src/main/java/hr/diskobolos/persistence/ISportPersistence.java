@@ -12,5 +12,5 @@ import hr.diskobolos.model.Sport;
  * @author Tomislav Čavka
  */
 public interface ISportPersistence extends IJpaDaoPersistence<Sport, Integer> {
-    
+
 }

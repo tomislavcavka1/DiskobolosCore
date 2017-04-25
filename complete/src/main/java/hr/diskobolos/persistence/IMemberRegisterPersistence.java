@@ -13,5 +13,5 @@ import hr.diskobolos.model.MemberRegister;
  * @author Tomislav Čavka
  */
 public interface IMemberRegisterPersistence extends IJpaDaoPersistence<MemberRegister, Integer> {
-    
+
 }
