@@ -60,7 +60,8 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
 
     @Override
     public void delete(T entity) {
-        entityManager.remove(entity);
+        T entityForDeletion = entityManager.contains(entity) ? entity : entityManager.merge(entity);
+        entityManager.remove(entityForDeletion);
     }
 
     @Override

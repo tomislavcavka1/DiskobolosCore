@@ -35,7 +35,7 @@ public class Sport implements ISport, Serializable {
 
     private String name;
 
-    @OneToMany(targetEntity = NomenclatureOfSport.class, cascade = CascadeType.ALL, mappedBy = "sport")
+    @OneToMany(targetEntity = NomenclatureOfSport.class, cascade = CascadeType.ALL, mappedBy = "sport", orphanRemoval = true)
     private List<NomenclatureOfSport> nomenclatureOfSports;
 
     public Integer getId() {

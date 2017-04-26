@@ -75,44 +75,7 @@ public class SportController {
     @ResponseBody
     public String editSportData(@RequestBody SportDto sportDto, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
-            Sport sport = new Sport();
-            sport.setId(sportDto.getId());
-            sport.setName(sportDto.getName());
-
-            List<NomenclatureOfSport> nomenclatureOfSports = new ArrayList<>();
-
-            for (NomenclatureOfSportsDto nomenclatureOfSportsDto : sportDto.getNomenclatureOfSports()) {
-
-                for (NomenclatureOfSportsDto.Value data : nomenclatureOfSportsDto.getData()) {
-                    NomenclatureCategories nomenclatureCategories = NomenclatureCategories.getInstance(nomenclatureOfSportsDto.getCategory());
-                    NomenclatureOfSport nomenclatureOfSport = new NomenclatureOfSport();
-                    nomenclatureOfSport.setSport(sport);
-                    switch (nomenclatureCategories) {
-                        case NATIONAL_SPORTS_FEDERATION:
-                            nomenclatureOfSport.setId(data.getId());
-                            nomenclatureOfSport.setCategory(NATIONAL_SPORTS_FEDERATION);
-                            nomenclatureOfSport.setCategoryDescription(NATIONAL_SPORTS_FEDERATION.getDescription());
-                            nomenclatureOfSport.setValue(data.getText());
-                            break;
-                        case INTERNATIONAL_FEDERATION:
-                            nomenclatureOfSport.setId(data.getId());
-                            nomenclatureOfSport.setCategory(INTERNATIONAL_FEDERATION);
-                            nomenclatureOfSport.setCategoryDescription(INTERNATIONAL_FEDERATION.getDescription());
-                            nomenclatureOfSport.setValue(data.getText());
-                            break;
-                        case IOC_SPORTACCORD:
-                            nomenclatureOfSport.setId(data.getId());
-                            nomenclatureOfSport.setCategory(IOC_SPORTACCORD);
-                            nomenclatureOfSport.setCategoryDescription(IOC_SPORTACCORD.getDescription());
-                            nomenclatureOfSport.setValue(data.getText());
-                            break;
-                        default:
-                            break;
-                    }
-                    nomenclatureOfSports.add(nomenclatureOfSport);
-                }
-            }
-            sport.setNomenclatureOfSports(nomenclatureOfSports);
+            Sport sport = mapSportDtoToSportModelObject(sportDto);
             sportService.update(sport);
             if (sportDto.getRemovedNomenclatureItems() != null) {
                 nomenclatureOfSportService.delete(sportDto.getRemovedNomenclatureItems());
@@ -124,5 +87,92 @@ public class SportController {
             logger.error("Error during editing sport data: ", e.getMessage());
             return ErrorHandlerUtils.handleAjaxError(request, response);
         }
+    }
+
+    /**
+     * REST service responsible for creating sport data
+     *
+     * @param sportDto
+     * @param request
+     * @param response
+     * @return
+     * @throws JSONException
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    public String createSportData(@RequestBody SportDto sportDto, HttpServletRequest request, HttpServletResponse response) throws JSONException {
+        try {
+            Sport sport = mapSportDtoToSportModelObject(sportDto);
+            sportService.persist(sport);
+            response.setStatus(HttpServletResponse.SC_OK);
+
+            return new JSONObject().put("result", 200).toString();
+        } catch (Exception e) {
+            logger.error("Error during editing sport data: ", e.getMessage());
+            return ErrorHandlerUtils.handleAjaxError(request, response);
+        }
+    }
+
+    /**
+     * REST service responsible for deletion of the sport data
+     *
+     * @param sport
+     * @param request
+     * @param response
+     * @return
+     * @throws JSONException
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteSportData(@RequestBody Sport sport, HttpServletRequest request, HttpServletResponse response) throws JSONException {
+        try {
+            sportService.delete(sport);
+            response.setStatus(HttpServletResponse.SC_OK);
+            return new JSONObject().put("result", 200).toString();
+        } catch (Exception e) {
+            return ErrorHandlerUtils.handleAjaxError(request, response);
+        }
+    }
+
+    private Sport mapSportDtoToSportModelObject(SportDto sportDto) {
+        Sport sport = new Sport();
+        sport.setId(sportDto.getId());
+        sport.setName(sportDto.getName());
+
+        List<NomenclatureOfSport> nomenclatureOfSports = new ArrayList<>();
+
+        for (NomenclatureOfSportsDto nomenclatureOfSportsDto : sportDto.getNomenclatureOfSports()) {
+
+            for (NomenclatureOfSportsDto.Value data : nomenclatureOfSportsDto.getData()) {
+                NomenclatureCategories nomenclatureCategories = NomenclatureCategories.getInstance(nomenclatureOfSportsDto.getCategory());
+                NomenclatureOfSport nomenclatureOfSport = new NomenclatureOfSport();
+                nomenclatureOfSport.setSport(sport);
+                switch (nomenclatureCategories) {
+                    case NATIONAL_SPORTS_FEDERATION:
+                        nomenclatureOfSport.setId(data.getId());
+                        nomenclatureOfSport.setCategory(NATIONAL_SPORTS_FEDERATION);
+                        nomenclatureOfSport.setCategoryDescription(NATIONAL_SPORTS_FEDERATION.getDescription());
+                        nomenclatureOfSport.setValue(data.getText());
+                        break;
+                    case INTERNATIONAL_FEDERATION:
+                        nomenclatureOfSport.setId(data.getId());
+                        nomenclatureOfSport.setCategory(INTERNATIONAL_FEDERATION);
+                        nomenclatureOfSport.setCategoryDescription(INTERNATIONAL_FEDERATION.getDescription());
+                        nomenclatureOfSport.setValue(data.getText());
+                        break;
+                    case IOC_SPORTACCORD:
+                        nomenclatureOfSport.setId(data.getId());
+                        nomenclatureOfSport.setCategory(IOC_SPORTACCORD);
+                        nomenclatureOfSport.setCategoryDescription(IOC_SPORTACCORD.getDescription());
+                        nomenclatureOfSport.setValue(data.getText());
+                        break;
+                    default:
+                        break;
+                }
+                nomenclatureOfSports.add(nomenclatureOfSport);
+            }
+        }
+        sport.setNomenclatureOfSports(nomenclatureOfSports);
+        return sport;
     }
 }
