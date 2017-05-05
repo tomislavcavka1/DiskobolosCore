@@ -18,43 +18,43 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MembershipCategoryServiceImpl implements IMembershipCategoryService {
-
+    
     @Autowired
     IMembershipCategoryPersistence membershipCategoryPersistence;
-
+    
     @Override
     public List<MembershipCategory> findAll() {
         return membershipCategoryPersistence.findAll();
     }
-
+    
     @Override
     public void persist(MembershipCategory entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        membershipCategoryPersistence.persist(entity);
     }
-
+    
     @Override
     public void update(MembershipCategory entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        membershipCategoryPersistence.update(entity);
     }
-
+    
     @Override
     public MembershipCategory findById(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void delete(MembershipCategory entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        membershipCategoryPersistence.delete(entity);
     }
-
+    
     @Override
     public void delete(List<MembershipCategory> entities) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void deleteAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

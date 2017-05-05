@@ -108,7 +108,7 @@ public class SportController {
 
             return new JSONObject().put("result", 200).toString();
         } catch (Exception e) {
-            logger.error("Error during editing sport data: ", e.getMessage());
+            logger.error("Error during creation of sport data: ", e.getMessage());
             return ErrorHandlerUtils.handleAjaxError(request, response);
         }
     }

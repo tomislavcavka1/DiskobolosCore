@@ -28,7 +28,7 @@ public class Application {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                String[] allowedOrigins = {"http://localhost:8081"};
+                String[] allowedOrigins = {"http://localhost:8081", "http://127.0.0.1:8081"};
                 registry.addMapping("/**").allowedOrigins(allowedOrigins);
             }
         };
