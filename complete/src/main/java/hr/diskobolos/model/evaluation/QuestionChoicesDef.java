@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hr.diskobolos.model;
+package hr.diskobolos.model.evaluation;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -20,17 +20,17 @@ import javax.persistence.Table;
  * @author Tomislav Čavka
  */
 @Entity
-@Table(name = "MEMBERSHIP_CATEGORY", schema = "DISKOBOLOS")
-@NamedQuery(name = "MembershipCategory.findAll", query = "SELECT m FROM MembershipCategory m")
-public class MembershipCategory implements Serializable {
+@Table(name = "QUESTION_CHOICES_DEF", schema = "DISKOBOLOS")
+@NamedQuery(name = "QuestionChoicesDef.findAll", query = "SELECT q FROM QuestionChoicesDef q")
+public class QuestionChoicesDef implements Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "membership_category_id_seq", sequenceName = "membership_category_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "membership_category_id_seq")
+    @SequenceGenerator(name = "question_choices_def_id_seq", sequenceName = "question_choices_def_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_choices_def_id_seq")
     private Integer id;
 
-    private String description;        
+    private String value;
 
     public Integer getId() {
         return id;
@@ -40,12 +40,12 @@ public class MembershipCategory implements Serializable {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getValue() {
+        return value;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setValue(String value) {
+        this.value = value;
     }
 
 }

@@ -121,6 +121,35 @@ create table diskobolos.email (
 	CONSTRAINT fk_email_member_register FOREIGN KEY (member_register_id) REFERENCES diskobolos.member_register(id)
 );
 
+CREATE SEQUENCE evaluation_question_def_id_seq
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+START 1;
+
+create table diskobolos.evaluation_question_def (
+	id int8 NOT NULL DEFAULT nextval('evaluation_question_def_id_seq'::regclass),	
+	question int8 not null unique,	
+	value_type int8,
+	mandatory boolean,
+	default_value varchar(100),
+	CONSTRAINT pk_evaluation_question_def PRIMARY KEY (id)
+);
+
+CREATE SEQUENCE question_choices_def_id_seq
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+START 1;
+
+create table diskobolos.question_choices_def (
+	id int8 NOT NULL DEFAULT nextval('question_choices_def_id_seq'::regclass),
+	question_id int8 not null,	
+	value varchar(100),
+	CONSTRAINT pk_question_choices_def PRIMARY KEY (id),
+	CONSTRAINT fk_question_choices_def_evaluation_question_def FOREIGN KEY (question_id) REFERENCES diskobolos.evaluation_question_def(question)
+);
+
 -- inserting data into location
 insert into location(postal_code, "name") values(23000, 'Zadar');
 insert into location(postal_code, "name") values(10000, 'Zagreb');
@@ -683,3 +712,25 @@ insert into diskobolos.email (email, member_register_id) values (NULLIF('hmedved
 insert into diskobolos.email (email, member_register_id) values (NULLIF('anteverunica@gmail.com', ''), 158);
 insert into diskobolos.email (email, member_register_id) values (NULLIF('zrilicneven@gmail.com', ''), 159);
 insert into diskobolos.email (email, member_register_id) values (NULLIF('sime_jukic@net.hr', ''), 159);
+
+-- inserting data into evaluation_question_def
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 0,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 1,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 2,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 3,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 4,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 5,  0, TRUE, null);
+
+-- inserting data into question_choices_def
+insert into diskobolos.question_choices_def(question_id, value) values (0, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (0, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (1, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (1, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (2, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (2, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (3, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (3, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (4, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (4, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (5, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (5, 'no');

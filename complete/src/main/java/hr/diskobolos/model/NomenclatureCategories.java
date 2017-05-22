@@ -11,30 +11,24 @@ package hr.diskobolos.model;
  */
 public enum NomenclatureCategories {
 
-    // TODO: instead of description put localization key and fetch real value by using ResourceBundle
-    NATIONAL_SPORTS_FEDERATION("NATIONAL_SPORTS_FEDERATION", "NACIONALNI SPORTSKI SAVEZ/članstvo u HOO-u"),
-    INTERNATIONAL_FEDERATION("INTERNATIONAL_FEDERATION", "MEĐUNARODNA FEDERACIJA"),
-    IOC_SPORTACCORD("IOC_SPORTACCORD", "Priznati od IOC-a, članovi SPORTACCORD-a");
+    NATIONAL_SPORTS_FEDERATION,
+    INTERNATIONAL_FEDERATION,
+    IOC_SPORTACCORD;
 
-    private final String type;
-    private final String description;
-
-    private NomenclatureCategories(String type, String description) {
-        this.type = type;
-        this.description = description;
+    private NomenclatureCategories() {
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return this.name();
     }
 
-    public String getDescription() {
-        return description;
+    public String getLocalizationKey() {
+        return this.getClass().getSimpleName() + "." + this.name();
     }
 
     public static NomenclatureCategories getInstance(String type) {
         for (NomenclatureCategories method : NomenclatureCategories.values()) {
-            if (type.equals(method.type)) {
+            if (type.equals(method.getName())) {
                 return method;
             }
         }

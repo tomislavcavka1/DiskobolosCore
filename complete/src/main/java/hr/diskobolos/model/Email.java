@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -21,7 +24,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "EMAIL", schema = "DISKOBOLOS")
-@NamedQuery(name = "Email.findAll", query = "SELECT e FROM Email e")
+@NamedQueries({
+    @NamedQuery(name = "Email.findAll", query = "SELECT e FROM Email e"),
+    @NamedQuery(name = "Email.deleteItems", query = "DELETE FROM Email e WHERE e IN :forDeletion")})
 public class Email implements Serializable {
 
     @Id
@@ -31,6 +36,10 @@ public class Email implements Serializable {
     private Integer id;
 
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_REGISTER_ID", referencedColumnName = "ID")
+    private MemberRegister memberRegister;
 
     public Integer getId() {
         return id;
@@ -46,6 +55,14 @@ public class Email implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public MemberRegister getMemberRegister() {
+        return memberRegister;
+    }
+
+    public void setMemberRegister(MemberRegister memberRegister) {
+        this.memberRegister = memberRegister;
     }
 
 }

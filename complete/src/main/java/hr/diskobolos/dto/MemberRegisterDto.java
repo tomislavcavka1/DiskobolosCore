@@ -3,50 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hr.diskobolos.model;
+package hr.diskobolos.dto;
 
-import java.io.Serializable;
-import java.util.Date;
+import hr.diskobolos.model.BankAccount;
+import hr.diskobolos.model.Email;
+import hr.diskobolos.model.Location;
+import hr.diskobolos.model.MembershipCategory;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  *
  * @author Tomislav Čavka
  */
-@Entity
-@Table(name = "MEMBER_REGISTER", schema = "DISKOBOLOS")
-@NamedQueries({
-    @NamedQuery(name = "MemberRegister.findAll", query = "SELECT m FROM MemberRegister m")})
-public class MemberRegister implements Serializable {
+public class MemberRegisterDto {
 
-    @Id
-    @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "member_register_id_seq", sequenceName = "member_register_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_register_id_seq")
     private Integer id;
 
     private String name;
 
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "LOCATION_ID")
     private Location location;
 
     private String phone1;
@@ -55,48 +31,29 @@ public class MemberRegister implements Serializable {
 
     private String fax;
 
-    @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
 
     private String oib;
 
-    @Column(name = "REGISTER_NUMBER")
     private String registerNumber;
 
-    @Column(name = "NUMBER_OF_NON_PROFIT_ORG")
     private String numberOfNonProfitOrg;
 
     private String chairman;
 
     private String secretary;
 
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "DATE_FROM")
-    private Date dateFrom;
+    private String dateFrom;
 
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "DATE_TO")
-    private Date dateTo;
+    private String dateTo;
 
-    @Temporal(value = TemporalType.DATE)
-    @Column(name = "REGISTRATION_DATE")
-    private Date registrationDate;
+    private String registrationDate;
 
-    @OneToOne
-    @JoinColumn(name = "MEMBERSHIP_CATEGORY")
     private MembershipCategory membershipCategory;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
     private List<Email> emails;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
     private List<BankAccount> bankAccounts;
-
-    @Transient
-    private List<Email> removedEmails;
-
-    @Transient
-    private List<BankAccount> removedBankAccounts;
 
     public Integer getId() {
         return id;
@@ -202,27 +159,27 @@ public class MemberRegister implements Serializable {
         this.secretary = secretary;
     }
 
-    public Date getDateFrom() {
+    public String getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(String dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateTo() {
+    public String getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(String dateTo) {
         this.dateTo = dateTo;
     }
 
-    public Date getRegistrationDate() {
+    public String getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
     }
 
@@ -250,19 +207,4 @@ public class MemberRegister implements Serializable {
         this.bankAccounts = bankAccounts;
     }
 
-    public List<Email> getRemovedEmails() {
-        return removedEmails;
-    }
-
-    public void setRemovedEmails(List<Email> removedEmails) {
-        this.removedEmails = removedEmails;
-    }
-
-    public List<BankAccount> getRemovedBankAccounts() {
-        return removedBankAccounts;
-    }
-
-    public void setRemovedBankAccounts(List<BankAccount> removedBankAccounts) {
-        this.removedBankAccounts = removedBankAccounts;
-    }
 }

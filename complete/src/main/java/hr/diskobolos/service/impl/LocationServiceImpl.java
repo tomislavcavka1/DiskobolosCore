@@ -5,9 +5,9 @@
  */
 package hr.diskobolos.service.impl;
 
-import hr.diskobolos.model.MemberRegister;
-import hr.diskobolos.persistence.IMemberRegisterPersistence;
-import hr.diskobolos.service.IMemberRegisterService;
+import hr.diskobolos.model.Location;
+import hr.diskobolos.persistence.ILocationPersistence;
+import hr.diskobolos.service.ILocationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,39 +17,39 @@ import org.springframework.stereotype.Service;
  * @author Tomislav Čavka
  */
 @Service
-public class MemberRegisterServiceImpl implements IMemberRegisterService {
+public class LocationServiceImpl implements ILocationService {
 
     @Autowired
-    IMemberRegisterPersistence membershipRegisterPersistence;
+    ILocationPersistence locationPersistence;
 
     @Override
-    public void persist(MemberRegister entity) {
-        membershipRegisterPersistence.persist(entity);
+    public void persist(Location entity) {
+        locationPersistence.persist(entity);
     }
 
     @Override
-    public void update(MemberRegister entity) {
-        membershipRegisterPersistence.update(entity);
+    public void update(Location entity) {
+        locationPersistence.update(entity);
     }
 
     @Override
-    public MemberRegister findById(Integer id) {
+    public Location findById(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(MemberRegister entity) {
-        membershipRegisterPersistence.delete(entity);        
+    public void delete(Location entity) {
+        locationPersistence.delete(entity);
     }
 
     @Override
-    public void delete(List<MemberRegister> entities) {
+    public void delete(List<Location> entities) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<MemberRegister> findAll() {
-        return membershipRegisterPersistence.findAll();
+    public List<Location> findAll() {
+        return locationPersistence.findAll();
     }
 
     @Override

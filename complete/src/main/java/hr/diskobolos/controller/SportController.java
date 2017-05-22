@@ -17,6 +17,7 @@ import hr.diskobolos.util.ErrorHandlerUtils;
 import hr.diskobolos.util.JSONMapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +53,9 @@ public class SportController {
 
     @Autowired
     JSONMapper jsonMapper;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
@@ -151,19 +156,19 @@ public class SportController {
                     case NATIONAL_SPORTS_FEDERATION:
                         nomenclatureOfSport.setId(data.getId());
                         nomenclatureOfSport.setCategory(NATIONAL_SPORTS_FEDERATION);
-                        nomenclatureOfSport.setCategoryDescription(NATIONAL_SPORTS_FEDERATION.getDescription());
+                        nomenclatureOfSport.setCategoryDescription(messageSource.getMessage(NATIONAL_SPORTS_FEDERATION.getLocalizationKey(), null, Locale.ENGLISH));
                         nomenclatureOfSport.setValue(data.getText());
                         break;
                     case INTERNATIONAL_FEDERATION:
                         nomenclatureOfSport.setId(data.getId());
                         nomenclatureOfSport.setCategory(INTERNATIONAL_FEDERATION);
-                        nomenclatureOfSport.setCategoryDescription(INTERNATIONAL_FEDERATION.getDescription());
+                        nomenclatureOfSport.setCategoryDescription(messageSource.getMessage(INTERNATIONAL_FEDERATION.getLocalizationKey(), null, Locale.ENGLISH));
                         nomenclatureOfSport.setValue(data.getText());
                         break;
                     case IOC_SPORTACCORD:
                         nomenclatureOfSport.setId(data.getId());
                         nomenclatureOfSport.setCategory(IOC_SPORTACCORD);
-                        nomenclatureOfSport.setCategoryDescription(IOC_SPORTACCORD.getDescription());
+                        nomenclatureOfSport.setCategoryDescription(messageSource.getMessage(IOC_SPORTACCORD.getLocalizationKey(), null, Locale.ENGLISH));
                         nomenclatureOfSport.setValue(data.getText());
                         break;
                     default:

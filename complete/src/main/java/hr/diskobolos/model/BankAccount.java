@@ -13,6 +13,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -23,7 +26,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "BANK_ACCOUNT", schema = "DISKOBOLOS")
-@NamedQuery(name = "BankAccount.findAll", query = "SELECT b FROM BankAccount b")
+@NamedQueries({
+    @NamedQuery(name = "BankAccount.findAll", query = "SELECT b FROM BankAccount b"),
+    @NamedQuery(name = "BankAccount.deleteItems", query = "DELETE FROM BankAccount b WHERE b IN :forDeletion")})
 public class BankAccount implements Serializable {
 
     @Id
@@ -41,6 +46,10 @@ public class BankAccount implements Serializable {
 
     @Column(name = "ACCOUNT_DESCRIPTION")
     private String accountDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_REGISTER_ID", referencedColumnName = "ID")
+    private MemberRegister memberRegister;
 
     public Integer getId() {
         return id;
@@ -72,6 +81,14 @@ public class BankAccount implements Serializable {
 
     public void setAccountDescription(String accountDescription) {
         this.accountDescription = accountDescription;
+    }
+
+    public MemberRegister getMemberRegister() {
+        return memberRegister;
+    }
+
+    public void setMemberRegister(MemberRegister memberRegister) {
+        this.memberRegister = memberRegister;
     }
 
 }
