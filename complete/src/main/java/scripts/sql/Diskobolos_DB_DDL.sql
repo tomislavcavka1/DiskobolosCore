@@ -100,9 +100,9 @@ START 1;
 create table diskobolos.nomenclature_of_sport (
 	id int8 NOT NULL DEFAULT nextval('diskobolos.nomenclature_of_sport_id_seq'::regclass),
 	sport_id int8 not null,
-	category varchar(80) not null,
+	category varchar(80),
 	category_description varchar(100),
-	value varchar(100) not null,
+	value varchar(100),
 	CONSTRAINT pk_nomenclature_of_sport PRIMARY KEY (id),
 	CONSTRAINT fk_nomenclature_of_sport_sport FOREIGN KEY (sport_id) REFERENCES diskobolos.sport(id)	
 );
