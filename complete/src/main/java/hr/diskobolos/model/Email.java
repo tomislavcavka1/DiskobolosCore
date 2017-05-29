@@ -27,12 +27,12 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Email.findAll", query = "SELECT e FROM Email e"),
     @NamedQuery(name = "Email.deleteItems", query = "DELETE FROM Email e WHERE e IN :forDeletion")})
-public class Email implements Serializable {
+public class Email implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "email_id_seq", sequenceName = "email_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "email_id_seq")
+    @SequenceGenerator(name = "diskobolos.email_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.email_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.email_id_seq")
     private Integer id;
 
     private String email;
@@ -41,6 +41,7 @@ public class Email implements Serializable {
     @JoinColumn(name = "MEMBER_REGISTER_ID", referencedColumnName = "ID")
     private MemberRegister memberRegister;
 
+    @Override
     public Integer getId() {
         return id;
     }

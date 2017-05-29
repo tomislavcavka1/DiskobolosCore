@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +53,7 @@ public class MemberRegisterController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String fetchAllMemberRegisters() {
         JSONObject resultMap = new JSONObject();
         List<MemberRegister> memberRegisters = memberRegisterService.findAll();
@@ -71,6 +73,7 @@ public class MemberRegisterController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String editMemberRegisterData(@RequestBody MemberRegister memberRegister, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             memberRegister.getEmails().stream().forEach((email) -> {
@@ -109,6 +112,7 @@ public class MemberRegisterController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String createMemberRegisterData(@RequestBody MemberRegister memberRegister, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             memberRegister.getEmails().stream().forEach((email) -> {
@@ -138,6 +142,7 @@ public class MemberRegisterController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteMemberRegisterData(@RequestBody MemberRegister memberRegister, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             memberRegisterService.delete(memberRegister);

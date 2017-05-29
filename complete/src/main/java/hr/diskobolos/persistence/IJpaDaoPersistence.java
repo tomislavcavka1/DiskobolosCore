@@ -1,5 +1,6 @@
 package hr.diskobolos.persistence;
 
+import hr.diskobolos.model.IIdentifier;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +17,15 @@ public interface IJpaDaoPersistence<T, Id extends Serializable> {
     void persist(T entity);
 
     void update(T entity);
+
+    /**
+     * Inserts an object into the database, or updates it if it doesn't exists
+     *
+     * @param <T>
+     * @param entity
+     * @return
+     */
+    <T extends IIdentifier> T save(T entity);
 
     T findById(Id id);
 

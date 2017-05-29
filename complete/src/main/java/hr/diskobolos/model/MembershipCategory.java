@@ -22,16 +22,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MEMBERSHIP_CATEGORY", schema = "DISKOBOLOS")
 @NamedQuery(name = "MembershipCategory.findAll", query = "SELECT m FROM MembershipCategory m")
-public class MembershipCategory implements Serializable {
+public class MembershipCategory implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "membership_category_id_seq", sequenceName = "membership_category_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "membership_category_id_seq")
+    @SequenceGenerator(name = "diskobolos.membership_category_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.membership_category_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.membership_category_id_seq")
     private Integer id;
 
-    private String description;        
+    private String description;
 
+    @Override
     public Integer getId() {
         return id;
     }

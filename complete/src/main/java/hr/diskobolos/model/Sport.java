@@ -29,8 +29,8 @@ public class Sport implements ISport, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "sport_id_seq", sequenceName = "sport_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sport_id_seq")
+    @SequenceGenerator(name = "diskobolos.sport_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.sport_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.sport_id_seq")
     private Integer id;
 
     private String name;
@@ -38,6 +38,7 @@ public class Sport implements ISport, Serializable {
     @OneToMany(targetEntity = NomenclatureOfSport.class, cascade = CascadeType.ALL, mappedBy = "sport", orphanRemoval = true)
     private List<NomenclatureOfSport> nomenclatureOfSports;
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -46,6 +47,7 @@ public class Sport implements ISport, Serializable {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -54,6 +56,7 @@ public class Sport implements ISport, Serializable {
         this.name = name;
     }
 
+    @Override
     public List<NomenclatureOfSport> getNomenclatureOfSports() {
         return nomenclatureOfSports;
     }

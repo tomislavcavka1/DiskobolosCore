@@ -32,8 +32,8 @@ public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "nomenclature_of_sport_id_seq", sequenceName = "nomenclature_of_sport_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nomenclature_of_sport_id_seq")
+    @SequenceGenerator(name = "diskobolos.nomenclature_of_sport_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.nomenclature_of_sport_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.nomenclature_of_sport_id_seq")
     private Integer id;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +48,7 @@ public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
     @JoinColumn(name = "SPORT_ID", referencedColumnName = "ID")
     private Sport sport;
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -56,6 +57,7 @@ public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
         this.id = id;
     }
 
+    @Override
     public NomenclatureCategories getCategory() {
         return category;
     }
@@ -64,6 +66,7 @@ public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
         this.category = category;
     }
 
+    @Override
     public String getCategoryDescription() {
         return categoryDescription;
     }
@@ -72,6 +75,7 @@ public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
         this.categoryDescription = categoryDescription;
     }
 
+    @Override
     public String getValue() {
         return value;
     }
@@ -80,6 +84,7 @@ public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
         this.value = value;
     }
 
+    @Override
     public Sport getSport() {
         return sport;
     }

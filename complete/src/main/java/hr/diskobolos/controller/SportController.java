@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,6 +60,7 @@ public class SportController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String fetchAllSports() {
         JSONObject resultMap = new JSONObject();
         List<Sport> sports = sportService.findAll();
@@ -78,6 +80,7 @@ public class SportController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String editSportData(@RequestBody SportDto sportDto, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             Sport sport = mapSportDtoToSportModelObject(sportDto);
@@ -105,6 +108,7 @@ public class SportController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String createSportData(@RequestBody SportDto sportDto, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             Sport sport = mapSportDtoToSportModelObject(sportDto);
@@ -129,6 +133,7 @@ public class SportController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteSportData(@RequestBody Sport sport, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             sportService.delete(sport);

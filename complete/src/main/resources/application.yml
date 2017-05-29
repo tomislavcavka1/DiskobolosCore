@@ -1,0 +1,33 @@
+# config context path to "/" by setting an empty string
+server:
+  contextPath:
+  port: 8080
+      
+app:
+  name: Diskobolos
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  claim:
+     userAuthorities: aut
+     userId: uid
+  route:
+    authentication:
+      path: authentication
+
+spring:
+  # PostgreSql
+  database:
+    driverClassName: org.postgresql.Driver     
+
+  # Datasource
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: admin    
+  jpa:    
+    database: POSTGRESQL
+    show-sql: true

@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +45,7 @@ public class MembershipCategoryController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String fetchAllMembershipCategories() {
         JSONObject resultMap = new JSONObject();
         List<MembershipCategory> membershipCategories = membershipCategoryService.findAll();
@@ -63,6 +65,7 @@ public class MembershipCategoryController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String editMembershipCategorysData(@RequestBody MembershipCategory membershipCategory, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             membershipCategoryService.update(membershipCategory);
@@ -85,6 +88,7 @@ public class MembershipCategoryController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String createMembershipCategorysData(@RequestBody MembershipCategory membershipCategory, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             membershipCategoryService.persist(membershipCategory);
@@ -107,6 +111,7 @@ public class MembershipCategoryController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteSportData(@RequestBody MembershipCategory membershipCategory, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             membershipCategoryService.delete(membershipCategory);

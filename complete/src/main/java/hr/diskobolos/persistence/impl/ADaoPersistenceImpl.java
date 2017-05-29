@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.persistence.impl;
 
+import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.persistence.IJpaDaoPersistence;
 import java.io.Serializable;
 import java.util.List;
@@ -27,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements IJpaDaoPersistence<T, Id> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public EntityManager getEntityManager() {
         return entityManager;
@@ -51,6 +52,18 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     @Override
     public void update(T entity) {
         entityManager.merge(entity);
+    }
+
+    @Override
+    public <T extends IIdentifier> T save(T entity) {
+        T result;
+        if (entity.getId() == null) {
+            getEntityManager().persist(entity);
+            result = entity;
+        } else {
+            result = getEntityManager().merge(entity);
+        }
+        return result;
     }
 
     @Override

@@ -20,13 +20,13 @@ import org.springframework.stereotype.Component;
  * @author Tomislav Čavka
  */
 @Component
-public class EvaluationConverter implements IEvaluationConverter {
-    
+public class EvaluationConverter implements IConverter<EvaluationQuestionDef, EvaluationDto> {
+
     @Autowired
     private MessageSource messageSource;
-    
+
     @Override
-    public EvaluationDto convertEvaluationQuestionDefToEvaluationDto(EvaluationQuestionDef evaluationQuestionDef) {
+    public EvaluationDto convert(EvaluationQuestionDef evaluationQuestionDef) {
         EvaluationDto evaluationDto = new EvaluationDto();
         evaluationDto.setId(evaluationQuestionDef.getId());
         evaluationDto.setQuestion(evaluationQuestionDef.getQuestion().getName());
@@ -36,9 +36,9 @@ public class EvaluationConverter implements IEvaluationConverter {
             EvaluationDto.Item item = new EvaluationDto.Item();
             item.setId(choice.getId());
             item.setValue(messageSource.getMessage(evaluationQuestionDef.getQuestion().getLocalizationKey().concat(".").concat(choice.getValue()), null, Locale.ENGLISH));
-            items.add(item);            
+            items.add(item);
         }
-        evaluationDto.setItems(items);        
+        evaluationDto.setItems(items);
         return evaluationDto;
     }
 }

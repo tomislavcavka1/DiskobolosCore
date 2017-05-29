@@ -22,12 +22,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "LOCATION", schema = "DISKOBOLOS")
 @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
-public class Location implements Serializable {
+public class Location implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "location_id_seq", sequenceName = "location_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_id_seq")
+    @SequenceGenerator(name = "diskobolos.location_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.location_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.location_id_seq")
     private Integer id;
 
     @Column(name = "POSTAL_CODE")
@@ -35,6 +35,7 @@ public class Location implements Serializable {
 
     private String name;
 
+    @Override
     public Integer getId() {
         return id;
     }

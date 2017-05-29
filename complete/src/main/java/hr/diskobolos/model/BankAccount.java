@@ -29,12 +29,12 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "BankAccount.findAll", query = "SELECT b FROM BankAccount b"),
     @NamedQuery(name = "BankAccount.deleteItems", query = "DELETE FROM BankAccount b WHERE b IN :forDeletion")})
-public class BankAccount implements Serializable {
+public class BankAccount implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "bank_account_id_seq", sequenceName = "bank_account_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bank_account_id_seq")
+    @SequenceGenerator(name = "diskobolos.bank_account_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.bank_account_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.bank_account_id_seq")
     private Integer id;
 
     @Column(name = "ACCOUNT_NUMBER")
@@ -51,6 +51,7 @@ public class BankAccount implements Serializable {
     @JoinColumn(name = "MEMBER_REGISTER_ID", referencedColumnName = "ID")
     private MemberRegister memberRegister;
 
+    @Override
     public Integer getId() {
         return id;
     }

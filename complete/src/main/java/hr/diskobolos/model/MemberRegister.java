@@ -33,12 +33,12 @@ import javax.persistence.Transient;
 @Table(name = "MEMBER_REGISTER", schema = "DISKOBOLOS")
 @NamedQueries({
     @NamedQuery(name = "MemberRegister.findAll", query = "SELECT m FROM MemberRegister m")})
-public class MemberRegister implements Serializable {
+public class MemberRegister implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "member_register_id_seq", sequenceName = "member_register_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_register_id_seq")
+    @SequenceGenerator(name = "diskobolos.member_register_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.member_register_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.member_register_id_seq")
     private Integer id;
 
     private String name;
@@ -98,6 +98,7 @@ public class MemberRegister implements Serializable {
     @Transient
     private List<BankAccount> removedBankAccounts;
 
+    @Override
     public Integer getId() {
         return id;
     }

@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.model.evaluation;
 
+import hr.diskobolos.model.IIdentifier;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,16 +23,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "QUESTION_CHOICES_DEF", schema = "DISKOBOLOS")
 @NamedQuery(name = "QuestionChoicesDef.findAll", query = "SELECT q FROM QuestionChoicesDef q")
-public class QuestionChoicesDef implements Serializable {
+public class QuestionChoicesDef implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "question_choices_def_id_seq", sequenceName = "question_choices_def_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_choices_def_id_seq")
+    @SequenceGenerator(name = "diskobolos.question_choices_def_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.question_choices_def_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.question_choices_def_id_seq")
     private Integer id;
 
     private String value;
 
+    @Override
     public Integer getId() {
         return id;
     }

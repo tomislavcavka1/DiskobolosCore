@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.model.evaluation;
 
+import hr.diskobolos.model.IIdentifier;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -28,12 +29,12 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "EVALUATION_QUESTION_DEF", schema = "DISKOBOLOS", uniqueConstraints = @UniqueConstraint(columnNames = {"QUESTION"}))
 @NamedQuery(name = "EvaluationQuestionDef.findAll", query = "SELECT e FROM EvaluationQuestionDef e")
-public class EvaluationQuestionDef implements Serializable {
+public class EvaluationQuestionDef implements IIdentifier, Serializable {
 
     @Id
     @Column(name = "id", updatable = false)
-    @SequenceGenerator(name = "evaluation_question_def_id_seq", sequenceName = "evaluation_question_def_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "evaluation_question_def_id_seq")
+    @SequenceGenerator(name = "diskobolos.evaluation_question_def_id_seq", schema = "DISKOBOLOS", sequenceName = "diskobolos.evaluation_question_def_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.evaluation_question_def_id_seq")
     private Integer id;
 
     @Enumerated(EnumType.ORDINAL)
@@ -52,6 +53,7 @@ public class EvaluationQuestionDef implements Serializable {
     @JoinColumn(name = "QUESTION_ID", referencedColumnName = "QUESTION")
     private List<QuestionChoicesDef> choices;
 
+    @Override
     public Integer getId() {
         return id;
     }
