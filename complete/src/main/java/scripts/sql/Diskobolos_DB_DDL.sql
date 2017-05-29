@@ -7,7 +7,7 @@ MAXVALUE 9223372036854775807
 START 1;
 
 create table diskobolos.location (
-	id int8 NOT NULL DEFAULT nextval('location_id_seq'::regclass),
+	id int8 NOT NULL DEFAULT nextval('diskobolos.location_id_seq'::regclass),
 	postal_code int4 not null unique,
 	name varchar(100) not null,
 	CONSTRAINT pk_location PRIMARY KEY (id)
@@ -159,7 +159,7 @@ START 1;
 create table diskobolos.users (
 	id int8 NOT NULL DEFAULT nextval('diskobolos.users_id_seq'::regclass),
 	username varchar(30) not null,
-	password varchar(50) not null,	
+	password varchar(100) not null,
 	email varchar(50) not null,
 	enabled bool NOT NULL,	
 	CONSTRAINT pk_users PRIMARY KEY (id)
