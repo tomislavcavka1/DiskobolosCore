@@ -121,14 +121,14 @@ create table diskobolos.email (
 	CONSTRAINT fk_email_member_register FOREIGN KEY (member_register_id) REFERENCES diskobolos.member_register(id)
 );
 
-CREATE SEQUENCE evaluation_question_def_id_seq
+CREATE SEQUENCE diskobolos.evaluation_question_def_id_seq
 INCREMENT BY 1
 MINVALUE 1
 MAXVALUE 9223372036854775807
 START 1;
 
 create table diskobolos.evaluation_question_def (
-	id int8 NOT NULL DEFAULT nextval('evaluation_question_def_id_seq'::regclass),	
+	id int8 NOT NULL DEFAULT nextval('diskobolos.evaluation_question_def_id_seq'::regclass),	
 	question int8 not null unique,	
 	value_type int8,
 	mandatory boolean,
@@ -136,18 +136,47 @@ create table diskobolos.evaluation_question_def (
 	CONSTRAINT pk_evaluation_question_def PRIMARY KEY (id)
 );
 
-CREATE SEQUENCE question_choices_def_id_seq
+CREATE SEQUENCE diskobolos.question_choices_def_id_seq
 INCREMENT BY 1
 MINVALUE 1
 MAXVALUE 9223372036854775807
 START 1;
 
 create table diskobolos.question_choices_def (
-	id int8 NOT NULL DEFAULT nextval('question_choices_def_id_seq'::regclass),
+	id int8 NOT NULL DEFAULT nextval('diskobolos.question_choices_def_id_seq'::regclass),
 	question_id int8 not null,	
 	value varchar(100),
 	CONSTRAINT pk_question_choices_def PRIMARY KEY (id),
 	CONSTRAINT fk_question_choices_def_evaluation_question_def FOREIGN KEY (question_id) REFERENCES diskobolos.evaluation_question_def(question)
+);
+
+CREATE SEQUENCE diskobolos.users_id_seq
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+START 1;
+
+create table diskobolos.users (
+	id int8 NOT NULL DEFAULT nextval('diskobolos.users_id_seq'::regclass),
+	username varchar(30) not null,
+	password varchar(50) not null,	
+	email varchar(50) not null,
+	enabled bool NOT NULL,	
+	CONSTRAINT pk_users PRIMARY KEY (id)
+);
+
+CREATE SEQUENCE diskobolos.authorities_id_seq
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+START 1;
+
+create table diskobolos.authorities (
+	id int8 NOT NULL DEFAULT nextval('diskobolos.authorities_id_seq'::regclass),
+	role varchar(30) not null,
+	user_id int8 not null,	
+	CONSTRAINT pk_authorities PRIMARY KEY (id),
+	CONSTRAINT fk_authorities_users FOREIGN KEY (user_id) REFERENCES diskobolos.users(id)
 );
 
 -- inserting data into location
@@ -734,3 +763,10 @@ insert into diskobolos.question_choices_def(question_id, value) values (4, 'yes'
 insert into diskobolos.question_choices_def(question_id, value) values (4, 'no');
 insert into diskobolos.question_choices_def(question_id, value) values (5, 'yes');
 insert into diskobolos.question_choices_def(question_id, value) values (5, 'no');
+
+-- inserting data into users table
+insert into diskobolos.users(username, password, email, enabled) values ('test', '$2a$04$PGghSlPUBJtDCs8pMXrj0OAbJN3deO1FVUKcgheGuyQgnMN65lx5m', 'test@gmail.com', true);
+
+-- inserting data into authorities table
+insert into diskobolos.authorities(role, user_id) values ('ROLE_USER', 1);
+insert into diskobolos.authorities(role, user_id) values ('ROLE_ADMIN', 1);
