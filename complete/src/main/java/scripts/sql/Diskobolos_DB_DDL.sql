@@ -174,7 +174,8 @@ START 1;
 create table diskobolos.authorities (
 	id int8 NOT NULL DEFAULT nextval('diskobolos.authorities_id_seq'::regclass),
 	role varchar(30) not null,
-	user_id int8 not null,	
+	user_id int8 not null,
+	permission_level int2 not null,
 	CONSTRAINT pk_authorities PRIMARY KEY (id),
 	CONSTRAINT fk_authorities_users FOREIGN KEY (user_id) REFERENCES diskobolos.users(id)
 );
@@ -768,5 +769,5 @@ insert into diskobolos.question_choices_def(question_id, value) values (5, 'no')
 insert into diskobolos.users(username, password, email, enabled) values ('test', '$2a$04$PGghSlPUBJtDCs8pMXrj0OAbJN3deO1FVUKcgheGuyQgnMN65lx5m', 'test@gmail.com', true);
 
 -- inserting data into authorities table
-insert into diskobolos.authorities(role, user_id) values ('ROLE_USER', 1);
-insert into diskobolos.authorities(role, user_id) values ('ROLE_ADMIN', 1);
+insert into diskobolos.authorities(role, user_id, permission_level) values ('ROLE_USER', 1, 2);
+insert into diskobolos.authorities(role, user_id, permission_level) values ('ROLE_ADMIN', 1, 0);
