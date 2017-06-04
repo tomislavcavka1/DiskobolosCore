@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,9 +41,9 @@ public class AuthenticatedUser implements UserDetails {
         );
     }
 
-    private static Set<GrantedAuthority> mapToGrantedAuthorities(Set<Authority> authorities) {
+    private static Set<ICustomGrantedAuthority> mapToGrantedAuthorities(Set<Authority> authorities) {
         return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getRole().name()))
+                .map(authority -> new CustomGrantedAuthority(authority.getRole().name(), authority.getPermissionLevel().name()))
                 .collect(Collectors.toSet());
     }
 
