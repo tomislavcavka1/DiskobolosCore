@@ -29,7 +29,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "BankAccount.findAll", query = "SELECT b FROM BankAccount b"),
     @NamedQuery(name = "BankAccount.deleteItems", query = "DELETE FROM BankAccount b WHERE b IN :forDeletion")})
-public class BankAccount implements IIdentifier, Serializable {
+public class BankAccount implements IIdentifier {
 
     @Id
     @Column(name = "id", updatable = false)

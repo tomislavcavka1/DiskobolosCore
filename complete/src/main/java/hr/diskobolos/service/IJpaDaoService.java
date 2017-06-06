@@ -5,7 +5,9 @@
  */
 package hr.diskobolos.service;
 
+import hr.diskobolos.model.IIdentifier;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,6 +23,24 @@ public interface IJpaDaoService<T, Id extends Serializable> {
     void persist(T entity);
 
     void update(T entity);
+
+    /**
+     * Inserts or updates provided collection of data into the databases
+     *
+     * @param <T>
+     * @param entities
+     * @return
+     */
+    <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities);
+
+    /**
+     * Inserts an object into the database, or updates it if it doesn't exists
+     *
+     * @param <T>
+     * @param entity
+     * @return
+     */
+    <T extends IIdentifier> T save(T entity);
 
     T findById(Id id);
 

@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SPORT", schema = "DISKOBOLOS")
 @NamedQuery(name = "Sport.findAll", query = "SELECT s FROM Sport s")
-public class Sport implements ISport, Serializable {
+public class Sport implements ISport {
 
     @Id
     @Column(name = "id", updatable = false)

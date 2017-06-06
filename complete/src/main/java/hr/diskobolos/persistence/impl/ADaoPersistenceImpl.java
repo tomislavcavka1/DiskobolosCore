@@ -8,10 +8,13 @@ package hr.diskobolos.persistence.impl;
 import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.persistence.IJpaDaoPersistence;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,9 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
 
     @PersistenceContext
     protected EntityManager entityManager;
+
+    @Value("${spring.jdbc.batch_size}")   
+    private Integer batchSize;
 
     public EntityManager getEntityManager() {
         return entityManager;
@@ -52,6 +58,22 @@ public abstract class ADaoPersistenceImpl<T, Id extends Serializable> implements
     @Override
     public void update(T entity) {
         entityManager.merge(entity);
+    }
+
+    @Override
+    public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
+        final List<T> savedEntities = new ArrayList<>(entities.size());
+        int i = 0;
+        for (T t : entities) {
+            savedEntities.add(save(t));
+            i++;
+            if (i % batchSize == 0) {
+                // Flush a batch of inserts and release memory.
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+        return savedEntities;
     }
 
     @Override

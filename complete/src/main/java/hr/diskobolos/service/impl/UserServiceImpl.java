@@ -5,9 +5,11 @@
  */
 package hr.diskobolos.service.impl;
 
+import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.model.security.User;
 import hr.diskobolos.persistence.IUserPersistence;
 import hr.diskobolos.service.IUserService;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,16 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void update(User entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public <T extends IIdentifier> T save(T entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

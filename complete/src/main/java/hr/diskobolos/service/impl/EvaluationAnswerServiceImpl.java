@@ -6,9 +6,10 @@
 package hr.diskobolos.service.impl;
 
 import hr.diskobolos.model.IIdentifier;
-import hr.diskobolos.model.Location;
-import hr.diskobolos.persistence.ILocationPersistence;
-import hr.diskobolos.service.ILocationService;
+import hr.diskobolos.model.MemberRegister;
+import hr.diskobolos.model.evaluation.EvaluationAnswer;
+import hr.diskobolos.persistence.IEvaluationAnswerPersistence;
+import hr.diskobolos.service.IEvaluationAnswerService;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +20,24 @@ import org.springframework.stereotype.Service;
  * @author Tomislav Čavka
  */
 @Service
-public class LocationServiceImpl implements ILocationService {
+public class EvaluationAnswerServiceImpl implements IEvaluationAnswerService {
 
     @Autowired
-    ILocationPersistence locationPersistence;
+    IEvaluationAnswerPersistence evaluationAnswerPersistence;
 
     @Override
-    public void persist(Location entity) {
-        locationPersistence.persist(entity);
+    public void persist(EvaluationAnswer entity) {
+        evaluationAnswerPersistence.persist(entity);
     }
 
     @Override
-    public void update(Location entity) {
-        locationPersistence.update(entity);
+    public void update(EvaluationAnswer entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return evaluationAnswerPersistence.bulkSave(entities);
     }
 
     @Override
@@ -45,23 +46,23 @@ public class LocationServiceImpl implements ILocationService {
     }
 
     @Override
-    public Location findById(Integer id) {
+    public EvaluationAnswer findById(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Location entity) {
-        locationPersistence.delete(entity);
-    }
-
-    @Override
-    public void delete(List<Location> entities) {
+    public void delete(EvaluationAnswer entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Location> findAll() {
-        return locationPersistence.findAll();
+    public void delete(List<EvaluationAnswer> entities) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<EvaluationAnswer> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -69,4 +70,8 @@ public class LocationServiceImpl implements ILocationService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<EvaluationAnswer> findAllByMemberRegister(MemberRegister memberRegister) {
+        return evaluationAnswerPersistence.findAllByMemberRegister(memberRegister);
+    }
 }

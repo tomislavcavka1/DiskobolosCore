@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -33,6 +35,10 @@ public class QuestionChoicesDef implements IIdentifier, Serializable {
 
     private String value;
 
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID", referencedColumnName = "QUESTION")
+    private EvaluationQuestionDef evaluationQuestionDef;
+
     @Override
     public Integer getId() {
         return id;
@@ -48,6 +54,14 @@ public class QuestionChoicesDef implements IIdentifier, Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public EvaluationQuestionDef getEvaluationQuestionDef() {
+        return evaluationQuestionDef;
+    }
+
+    public void setEvaluationQuestionDef(EvaluationQuestionDef evaluationQuestionDef) {
+        this.evaluationQuestionDef = evaluationQuestionDef;
     }
 
 }

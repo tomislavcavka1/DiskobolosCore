@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Email.findAll", query = "SELECT e FROM Email e"),
     @NamedQuery(name = "Email.deleteItems", query = "DELETE FROM Email e WHERE e IN :forDeletion")})
-public class Email implements IIdentifier, Serializable {
+public class Email implements IIdentifier {
 
     @Id
     @Column(name = "id", updatable = false)

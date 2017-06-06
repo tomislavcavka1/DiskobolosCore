@@ -5,13 +5,15 @@
  */
 package hr.diskobolos.model;
 
+import java.io.Serializable;
+
 /**
  * Objects can be identified by an unique identifier. How unique this identifier
  * is, depends on the context.
  *
  * @author Tomislav Čavka
  */
-public interface IIdentifier {
+public interface IIdentifier extends Serializable {
 
     /**
      * Gets the identifier of this object

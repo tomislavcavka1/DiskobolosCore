@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MEMBERSHIP_CATEGORY", schema = "DISKOBOLOS")
 @NamedQuery(name = "MembershipCategory.findAll", query = "SELECT m FROM MembershipCategory m")
-public class MembershipCategory implements IIdentifier, Serializable {
+public class MembershipCategory implements IIdentifier {
 
     @Id
     @Column(name = "id", updatable = false)

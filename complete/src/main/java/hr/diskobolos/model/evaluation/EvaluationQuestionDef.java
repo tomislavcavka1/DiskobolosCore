@@ -15,7 +15,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -49,8 +48,7 @@ public class EvaluationQuestionDef implements IIdentifier, Serializable {
     @Column(name = "DEFAULT_VALUE")
     private String defaultValue;
 
-    @OneToMany
-    @JoinColumn(name = "QUESTION_ID", referencedColumnName = "QUESTION")
+    @OneToMany(mappedBy = "evaluationQuestionDef")
     private List<QuestionChoicesDef> choices;
 
     @Override

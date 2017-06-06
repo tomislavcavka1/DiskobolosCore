@@ -5,9 +5,11 @@
  */
 package hr.diskobolos.service.impl;
 
+import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.model.MemberRegister;
 import hr.diskobolos.persistence.IMemberRegisterPersistence;
 import hr.diskobolos.service.IMemberRegisterService;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +35,23 @@ public class MemberRegisterServiceImpl implements IMemberRegisterService {
     }
 
     @Override
-    public MemberRegister findById(Integer id) {
+    public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+    public <T extends IIdentifier> T save(T entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public MemberRegister findById(Integer id) {
+        return membershipRegisterPersistence.findById(id);
+    }
+
+    @Override
     public void delete(MemberRegister entity) {
-        membershipRegisterPersistence.delete(entity);        
+        membershipRegisterPersistence.delete(entity);
     }
 
     @Override

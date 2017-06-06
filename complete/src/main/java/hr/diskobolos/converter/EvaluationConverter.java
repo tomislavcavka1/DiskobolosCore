@@ -30,6 +30,7 @@ public class EvaluationConverter implements IConverter<EvaluationQuestionDef, Ev
         EvaluationDto evaluationDto = new EvaluationDto();
         evaluationDto.setId(evaluationQuestionDef.getId());
         evaluationDto.setQuestion(evaluationQuestionDef.getQuestion().getName());
+        evaluationDto.setGroup(evaluationQuestionDef.getQuestion().getGroup().name());
         evaluationDto.setLabel(messageSource.getMessage(evaluationQuestionDef.getQuestion().getLocalizationKey(), null, Locale.ENGLISH));
         List<EvaluationDto.Item> items = new ArrayList<>();
         for (QuestionChoicesDef choice : evaluationQuestionDef.getChoices()) {

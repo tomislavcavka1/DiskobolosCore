@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "LOCATION", schema = "DISKOBOLOS")
 @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
-public class Location implements IIdentifier, Serializable {
+public class Location implements IIdentifier {
 
     @Id
     @Column(name = "id", updatable = false)

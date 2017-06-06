@@ -28,7 +28,7 @@ import javax.persistence.Table;
 @Table(name = "NOMENCLATURE_OF_SPORT", schema = "DISKOBOLOS")
 @NamedQueries({
     @NamedQuery(name = "NomenclatureOfSport.deleteItems", query = "DELETE FROM NomenclatureOfSport n WHERE n IN :forDeletion")})
-public class NomenclatureOfSport implements INomenclatureOfSport, Serializable {
+public class NomenclatureOfSport implements INomenclatureOfSport {
 
     @Id
     @Column(name = "id", updatable = false)

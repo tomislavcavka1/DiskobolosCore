@@ -33,7 +33,7 @@ import javax.persistence.Transient;
 @Table(name = "MEMBER_REGISTER", schema = "DISKOBOLOS")
 @NamedQueries({
     @NamedQuery(name = "MemberRegister.findAll", query = "SELECT m FROM MemberRegister m")})
-public class MemberRegister implements IIdentifier, Serializable {
+public class MemberRegister implements IIdentifier {
 
     @Id
     @Column(name = "id", updatable = false)

@@ -6,8 +6,10 @@
 package hr.diskobolos.service.impl;
 
 import hr.diskobolos.model.BankAccount;
+import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.persistence.IBankAccountPersistence;
 import hr.diskobolos.service.IBankAccountService;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,16 @@ public class BankAccountServiceImpl implements IBankAccountService {
 
     @Override
     public void update(BankAccount entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public <T extends IIdentifier> T save(T entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

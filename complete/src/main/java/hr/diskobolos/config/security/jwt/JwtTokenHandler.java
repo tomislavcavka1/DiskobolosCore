@@ -22,6 +22,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ *
+ * @author Tomislav Čavka
+ */
 @Service
 public class JwtTokenHandler {
 

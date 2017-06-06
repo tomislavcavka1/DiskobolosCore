@@ -5,9 +5,11 @@
  */
 package hr.diskobolos.service.impl;
 
+import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.model.NomenclatureOfSport;
 import hr.diskobolos.persistence.INomenclatureOfSportPersistence;
 import hr.diskobolos.service.INomenclatureOfSportService;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,16 @@ public class NomenclatureOfSportServiceImpl implements INomenclatureOfSportServi
 
     @Override
     public void update(NomenclatureOfSport entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public <T extends IIdentifier> T save(T entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

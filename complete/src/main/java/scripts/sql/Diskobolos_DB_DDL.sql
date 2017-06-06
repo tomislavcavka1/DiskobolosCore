@@ -750,6 +750,22 @@ insert into diskobolos.evaluation_question_def (question, value_type, mandatory,
 insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 3,  0, TRUE, null);
 insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 4,  0, TRUE, null);
 insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 5,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 6,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 7,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 8,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 9,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 10,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 11,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 12,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 13,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 14,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 15,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 16,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 17,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 18,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 19,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 20,  0, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, mandatory, default_value) values ( 21,  0, TRUE, null);
 
 -- inserting data into question_choices_def
 insert into diskobolos.question_choices_def(question_id, value) values (0, 'yes');
@@ -764,6 +780,38 @@ insert into diskobolos.question_choices_def(question_id, value) values (4, 'yes'
 insert into diskobolos.question_choices_def(question_id, value) values (4, 'no');
 insert into diskobolos.question_choices_def(question_id, value) values (5, 'yes');
 insert into diskobolos.question_choices_def(question_id, value) values (5, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (6, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (6, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (7, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (7, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (8, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (8, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (9, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (9, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (10, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (10, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (11, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (11, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (12, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (12, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (13, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (13, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (14, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (14, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (15, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (15, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (16, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (16, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (17, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (17, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (18, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (18, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (19, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (19, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (20, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (20, 'no');
+insert into diskobolos.question_choices_def(question_id, value) values (21, 'yes');
+insert into diskobolos.question_choices_def(question_id, value) values (21, 'no');
 
 -- inserting data into users table
 insert into diskobolos.users(username, password, email, enabled) values ('test', '$2a$04$PGghSlPUBJtDCs8pMXrj0OAbJN3deO1FVUKcgheGuyQgnMN65lx5m', 'test@gmail.com', true);

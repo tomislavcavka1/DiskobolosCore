@@ -31,3 +31,5 @@ spring:
   jpa:    
     database: POSTGRESQL
     show-sql: true
+  jdbc:     
+    batch_size: 30
