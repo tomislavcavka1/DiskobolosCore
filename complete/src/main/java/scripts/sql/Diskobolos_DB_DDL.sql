@@ -150,6 +150,21 @@ create table diskobolos.question_choices_def (
 	CONSTRAINT fk_question_choices_def_evaluation_question_def FOREIGN KEY (question_id) REFERENCES diskobolos.evaluation_question_def(question)
 );
 
+CREATE SEQUENCE diskobolos.evaluation_answer_id_seq
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+START 1;
+
+create table diskobolos.evaluation_answer (
+	id int8 NOT NULL DEFAULT nextval('diskobolos.evaluation_answer_id_seq'::regclass),
+	member_register_id int8 not null,
+	answer int8 not null,
+	CONSTRAINT pk_evaluation_answer PRIMARY KEY (id),
+	CONSTRAINT fk_evaluation_answer_question_choices_def FOREIGN KEY (answer) REFERENCES diskobolos.question_choices_def(id),
+	CONSTRAINT fk_evaluation_answer_member_register FOREIGN KEY (member_register_id) REFERENCES diskobolos.member_register(id)
+);
+
 CREATE SEQUENCE diskobolos.users_id_seq
 INCREMENT BY 1
 MINVALUE 1
