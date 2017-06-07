@@ -23,7 +23,7 @@ public class TermsOfConditionDto {
 
     private Date registrationDate;
 
-    private boolean isValid;
+    private String termsOfConditionStatus;
 
     public Integer getId() {
         return id;
@@ -65,11 +65,11 @@ public class TermsOfConditionDto {
         this.registrationDate = registrationDate;
     }
 
-    public boolean isIsValid() {
-        return isValid;
+    public String getTermsOfConditionStatus() {
+        return termsOfConditionStatus;
     }
 
-    public void setIsValid(boolean isValid) {
-        this.isValid = isValid;
+    public void setTermsOfConditionStatus(String termsOfConditionStatus) {
+        this.termsOfConditionStatus = termsOfConditionStatus;
     }
 }

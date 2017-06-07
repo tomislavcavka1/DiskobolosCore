@@ -17,7 +17,6 @@ import hr.diskobolos.service.IEvaluationQuestionDefService;
 import hr.diskobolos.service.IMemberRegisterService;
 import hr.diskobolos.util.ErrorHandlerUtils;
 import hr.diskobolos.util.JSONMapper;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
