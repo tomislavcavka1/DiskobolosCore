@@ -788,6 +788,13 @@ insert into diskobolos.evaluation_question_def (question, value_type, questionna
 insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 24,  0, 1, TRUE, null);
 insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 25,  0, 1, TRUE, null);
 insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 26,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 27,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 28,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 29,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 30,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 31,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 32,  0, 1, TRUE, null);
+insert into diskobolos.evaluation_question_def (question, value_type, questionnaire, mandatory, default_value) values ( 33,  0, 1, TRUE, null);
 
 -- inserting data into question_choices_def
 insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (0, 'yes', 'true', 'Boolean');
@@ -856,6 +863,25 @@ insert into diskobolos.question_choices_def(question_id, label, value, value_typ
 insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (26, '10', '3', 'Integer');
 insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (26, '15', '4', 'Integer');
 insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (26, 'moreThan15', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (27, '1', '1', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (27, '3', '3', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (27, '5', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (28, '1', '1', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (28, '3', '3', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (28, '5', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (29, '0', '0', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (29, '5', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (30, '1', '1', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (30, '3', '3', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (30, '5', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (31, '0', '0', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (31, '5', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (32, '1', '1', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (32, '3', '3', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (32, '5', '5', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (33, '1', '1', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (33, '3', '3', 'Integer');
+insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (33, '5', '5', 'Integer');
 
 -- inserting data into users table
 insert into diskobolos.users(username, password, email, enabled) values ('test', '$2a$04$PGghSlPUBJtDCs8pMXrj0OAbJN3deO1FVUKcgheGuyQgnMN65lx5m', 'test@gmail.com', true);
