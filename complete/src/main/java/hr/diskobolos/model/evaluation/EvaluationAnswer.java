@@ -28,7 +28,8 @@ import javax.persistence.Table;
 @Table(name = "EVALUATION_ANSWER", schema = "DISKOBOLOS")
 @NamedQueries({
     @NamedQuery(name = "EvaluationAnswer.findAll", query = "SELECT e FROM EvaluationAnswer e"),
-    @NamedQuery(name = "EvaluationAnswer.findAllByMemberRegister", query = "SELECT e FROM EvaluationAnswer e WHERE e.memberRegister = :memberRegister")})
+    @NamedQuery(name = "EvaluationAnswer.findAllByMemberRegister", query = "SELECT e FROM EvaluationAnswer e WHERE e.memberRegister = :memberRegister"),
+    @NamedQuery(name = "EvaluationAnswer.findAllByMemberRegisterAndQuestionnaireType", query = "SELECT e FROM EvaluationAnswer e WHERE e.memberRegister = :memberRegister AND e.answer.evaluationQuestionDef.questionnaireType = :questionnaireType")})
 public class EvaluationAnswer implements IIdentifier {
 
     @Id

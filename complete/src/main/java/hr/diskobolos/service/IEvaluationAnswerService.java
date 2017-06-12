@@ -5,8 +5,11 @@
  */
 package hr.diskobolos.service;
 
+import hr.diskobolos.dto.RankingAndCategorizationOfSportsDto;
+import hr.diskobolos.dto.TermsOfCompetitionDto;
 import hr.diskobolos.model.MemberRegister;
 import hr.diskobolos.model.evaluation.EvaluationAnswer;
+import hr.diskobolos.model.evaluation.QuestionnaireType;
 import java.util.List;
 
 /**
@@ -15,6 +18,9 @@ import java.util.List;
  */
 public interface IEvaluationAnswerService extends IJpaDaoService<EvaluationAnswer, Integer> {
 
-    List<EvaluationAnswer> findAllByMemberRegister(MemberRegister memberRegister);
+    List<EvaluationAnswer> findAllByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
 
+    TermsOfCompetitionDto fetchTermsOfCompetitionByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
+
+    RankingAndCategorizationOfSportsDto fetchRankingAndCategorizationOfSportsByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
 }

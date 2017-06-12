@@ -6,11 +6,14 @@
 package hr.diskobolos.service;
 
 import hr.diskobolos.model.evaluation.EvaluationQuestionDef;
+import hr.diskobolos.model.evaluation.QuestionnaireType;
+import java.util.List;
 
 /**
  *
  * @author Tomislav Čavka
  */
 public interface IEvaluationQuestionDefService extends IJpaDaoService<EvaluationQuestionDef, Integer> {
-
+    
+    List<EvaluationQuestionDef> findByQuestionnanireType(QuestionnaireType questionnaireType);
 }

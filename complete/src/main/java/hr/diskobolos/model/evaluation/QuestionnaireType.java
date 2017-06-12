@@ -10,5 +10,19 @@ package hr.diskobolos.model.evaluation;
  * @author Tomislav Čavka
  */
 public enum QuestionnaireType {
-    TERMS_OF_CONDITION;
+    TERMS_OF_CONDITION,
+    RANKING_AND_CATEGORIZATION_OF_SPORTS;
+
+    public String getName() {
+        return this.name();
+    }
+
+    public static QuestionnaireType getInstance(String type) {
+        for (QuestionnaireType method : QuestionnaireType.values()) {
+            if (type.equals(method.getName())) {
+                return method;
+            }
+        }
+        return null;
+    }
 }

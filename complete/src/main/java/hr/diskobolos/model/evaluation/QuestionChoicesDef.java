@@ -9,6 +9,8 @@ import hr.diskobolos.model.IIdentifier;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +35,13 @@ public class QuestionChoicesDef implements IIdentifier, Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.question_choices_def_id_seq")
     private Integer id;
 
+    private String label;
+
     private String value;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name="VALUE_TYPE")
+    private QuestionValueType valueType;
 
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID", referencedColumnName = "QUESTION")
@@ -48,6 +56,14 @@ public class QuestionChoicesDef implements IIdentifier, Serializable {
         this.id = id;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public String getValue() {
         return value;
     }
@@ -56,6 +72,14 @@ public class QuestionChoicesDef implements IIdentifier, Serializable {
         this.value = value;
     }
 
+    public QuestionValueType getValueType() {
+        return valueType;
+    }
+
+    public void setValueType(QuestionValueType valueType) {
+        this.valueType = valueType;
+    }
+    
     public EvaluationQuestionDef getEvaluationQuestionDef() {
         return evaluationQuestionDef;
     }

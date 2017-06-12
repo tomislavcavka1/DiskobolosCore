@@ -10,5 +10,16 @@ package hr.diskobolos.model.evaluation;
  * @author Tomislav Čavka
  */
 public enum QuestionValueType {
-    RADIO;
+    Boolean(Boolean.class),
+    Integer(Integer.class);
+
+    private final Class<?> dataType;
+
+    private QuestionValueType(Class<?> dataType) {
+        this.dataType = dataType;
+    }
+
+    public Class<?> getDataType() {
+        return dataType;
+    }
 }

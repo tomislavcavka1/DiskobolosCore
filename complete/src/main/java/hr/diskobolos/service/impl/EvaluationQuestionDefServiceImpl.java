@@ -7,6 +7,7 @@ package hr.diskobolos.service.impl;
 
 import hr.diskobolos.model.IIdentifier;
 import hr.diskobolos.model.evaluation.EvaluationQuestionDef;
+import hr.diskobolos.model.evaluation.QuestionnaireType;
 import hr.diskobolos.persistence.IEvaluationQuestionDefPersistence;
 import hr.diskobolos.service.IEvaluationQuestionDefService;
 import java.util.Collection;
@@ -33,7 +34,7 @@ public class EvaluationQuestionDefServiceImpl implements IEvaluationQuestionDefS
     public void update(EvaluationQuestionDef entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public <T extends IIdentifier> Collection<T> bulkSave(Collection<T> entities) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -69,4 +70,8 @@ public class EvaluationQuestionDefServiceImpl implements IEvaluationQuestionDefS
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<EvaluationQuestionDef> findByQuestionnanireType(QuestionnaireType questionnaireType) {
+        return evaluationQuestionDefPersistence.findByQuestionnanireType(questionnaireType);
+    }
 }

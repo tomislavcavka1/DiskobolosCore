@@ -15,6 +15,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -27,7 +28,9 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "EVALUATION_QUESTION_DEF", schema = "DISKOBOLOS", uniqueConstraints = @UniqueConstraint(columnNames = {"QUESTION"}))
-@NamedQuery(name = "EvaluationQuestionDef.findAll", query = "SELECT e FROM EvaluationQuestionDef e")
+@NamedQueries({
+    @NamedQuery(name = "EvaluationQuestionDef.findAll", query = "SELECT e FROM EvaluationQuestionDef e"),
+    @NamedQuery(name = "EvaluationQuestionDef.findByQuestionnaireType", query = "SELECT e FROM EvaluationQuestionDef e WHERE e.questionnaireType = :questionnaireType")})
 public class EvaluationQuestionDef implements IIdentifier, Serializable {
 
     @Id
@@ -41,7 +44,11 @@ public class EvaluationQuestionDef implements IIdentifier, Serializable {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "VALUE_TYPE")
-    private QuestionValueType valueType;
+    private QuestionInputType valueType;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "QUESTIONNAIRE")
+    private QuestionnaireType questionnaireType;
 
     private Boolean mandatory;
 
@@ -68,12 +75,20 @@ public class EvaluationQuestionDef implements IIdentifier, Serializable {
         this.question = question;
     }
 
-    public QuestionValueType getValueType() {
+    public QuestionInputType getValueType() {
         return valueType;
     }
 
-    public void setValueType(QuestionValueType valueType) {
+    public void setValueType(QuestionInputType valueType) {
         this.valueType = valueType;
+    }
+
+    public QuestionnaireType getQuestionnaireType() {
+        return questionnaireType;
+    }
+
+    public void setQuestionnaireType(QuestionnaireType questionnaireType) {
+        this.questionnaireType = questionnaireType;
     }
 
     public Boolean getMandatory() {

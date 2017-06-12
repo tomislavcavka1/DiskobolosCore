@@ -19,8 +19,12 @@ public class EvaluationDto {
 
     private String label;
 
+    private List<Item> items;
+
     private String group;
-    
+
+    private String questionnaireType;
+
     public Integer getId() {
         return id;
     }
@@ -49,6 +53,10 @@ public class EvaluationDto {
         return items;
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     public String getGroup() {
         return group;
     }
@@ -57,17 +65,21 @@ public class EvaluationDto {
         this.group = group;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public String getQuestionnaireType() {
+        return questionnaireType;
     }
 
-    private List<Item> items;
+    public void setQuestionnaireType(String questionnaireType) {
+        this.questionnaireType = questionnaireType;
+    }
 
     public static class Item {
 
         private Integer id;
 
-        private String value;
+        private String label;
+
+        private Object value;
 
         public Integer getId() {
             return id;
@@ -77,11 +89,19 @@ public class EvaluationDto {
             this.id = id;
         }
 
-        public String getValue() {
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+
+        public Object getValue() {
             return value;
         }
 
-        public void setValue(String value) {
+        public void setValue(Object value) {
             this.value = value;
         }
     }

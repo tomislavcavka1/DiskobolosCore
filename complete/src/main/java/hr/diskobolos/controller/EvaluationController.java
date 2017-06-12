@@ -8,10 +8,10 @@ package hr.diskobolos.controller;
 import hr.diskobolos.converter.IConverter;
 import hr.diskobolos.dto.EvaluationAnswerDto;
 import hr.diskobolos.dto.EvaluationDto;
-import hr.diskobolos.dto.TermsOfConditionDto;
 import hr.diskobolos.model.MemberRegister;
 import hr.diskobolos.model.evaluation.EvaluationAnswer;
 import hr.diskobolos.model.evaluation.EvaluationQuestionDef;
+import hr.diskobolos.model.evaluation.QuestionnaireType;
 import hr.diskobolos.service.IEvaluationAnswerService;
 import hr.diskobolos.service.IEvaluationQuestionDefService;
 import hr.diskobolos.service.IMemberRegisterService;
@@ -65,9 +65,6 @@ public class EvaluationController {
     IConverter<EvaluationQuestionDef, EvaluationDto> evaluationConverter;
 
     @Autowired
-    IConverter<MemberRegister, TermsOfConditionDto> evaluationAnswerConverter;
-
-    @Autowired
     private MessageSource messageSource;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -76,6 +73,20 @@ public class EvaluationController {
     public String fetchAllEvaluationQuestions() {
         JSONObject resultMap = new JSONObject();
         List<EvaluationQuestionDef> evaluationQuestions = evaluationQuestionDefService.findAll();
+        List<EvaluationDto> evaluationDtoQuestions = evaluationQuestions.stream()
+                .map(e -> evaluationConverter.convert(e))
+                .collect(Collectors.toList());
+        JSONArray evaluationDtoQuestionsJson = jsonMapper.getJSONArray(evaluationDtoQuestions);
+        resultMap.put("evaluationDtoQuestions", evaluationDtoQuestionsJson);
+        return resultMap.toString();
+    }
+
+    @RequestMapping(value = "/findAllByQuestionnaireType/{questionnaireType}", method = RequestMethod.GET)
+    @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    public String findAllByQuestionnaireType(@PathVariable String questionnaireType) {
+        JSONObject resultMap = new JSONObject();
+        List<EvaluationQuestionDef> evaluationQuestions = evaluationQuestionDefService.findByQuestionnanireType(QuestionnaireType.getInstance(questionnaireType));
         List<EvaluationDto> evaluationDtoQuestions = evaluationQuestions.stream()
                 .map(e -> evaluationConverter.convert(e))
                 .collect(Collectors.toList());
@@ -107,27 +118,39 @@ public class EvaluationController {
         }
     }
 
-    @RequestMapping(value = "/fetchMemberRegistersWithAssociatedEvaluations", method = RequestMethod.GET)
+    @RequestMapping(value = "/fetchMemberRegistersWithAssociatedEvaluations/{questionnaireType}", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    public String fetchMemberRegistersWithAssociatedEvaluations() {
+    public String fetchMemberRegistersWithAssociatedEvaluations(@PathVariable String questionnaireType) {
         JSONObject resultMap = new JSONObject();
+        List<?> evaluationQuestionDefDto = null;
         List<MemberRegister> memberRegisters = memberRegisterService.findAll();
-        List<TermsOfConditionDto> termsOfConditionDto = memberRegisters.stream()
-                .map(m -> evaluationAnswerConverter.convert(m))
-                .collect(Collectors.toList());
-        JSONArray termsOfConditionDtoJson = jsonMapper.getJSONArray(termsOfConditionDto);
-        resultMap.put("termsOfConditionDtoJson", termsOfConditionDtoJson);
+        switch (QuestionnaireType.getInstance(questionnaireType)) {
+            case TERMS_OF_CONDITION:
+                evaluationQuestionDefDto = memberRegisters.stream()
+                        .map(m -> evaluationAnswerService.fetchTermsOfCompetitionByMemberRegisterAndQuestionnaireType(m, QuestionnaireType.TERMS_OF_CONDITION))
+                        .collect(Collectors.toList());
+                break;
+            case RANKING_AND_CATEGORIZATION_OF_SPORTS:
+                evaluationQuestionDefDto = memberRegisters.stream()
+                        .map(m -> evaluationAnswerService.fetchRankingAndCategorizationOfSportsByMemberRegisterAndQuestionnaireType(m, QuestionnaireType.RANKING_AND_CATEGORIZATION_OF_SPORTS))
+                        .collect(Collectors.toList());
+                break;
+            default:
+                break;
+        }
+        JSONArray evaluationQuestionDefJson = jsonMapper.getJSONArray(evaluationQuestionDefDto);
+        resultMap.put("evaluationQuestionDefJson", evaluationQuestionDefJson);
         return resultMap.toString();
     }
 
-    @RequestMapping(value = "/fetchEvaluationAnswersByMemberRegisterId/{memberRegisterId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllByMemberRegisterAndQuestionnaireType/{memberRegisterId}/{questionnaireType}", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    public String fetchEvaluationAnswersByMemberRegisterId(@PathVariable Integer memberRegisterId) {
+    public String findAllByMemberRegisterAndQuestionnaireType(@PathVariable Integer memberRegisterId, @PathVariable String questionnaireType) {
         JSONObject resultMap = new JSONObject();
         MemberRegister memberRegister = memberRegisterService.findById(memberRegisterId);
-        List<EvaluationAnswer> evaluationAnswers = evaluationAnswerService.findAllByMemberRegister(memberRegister);
+        List<EvaluationAnswer> evaluationAnswers = evaluationAnswerService.findAllByMemberRegisterAndQuestionnaireType(memberRegister, QuestionnaireType.getInstance(questionnaireType));
 
         evaluationAnswers.forEach((EvaluationAnswer e) -> {
             e.getAnswer().setValue(messageSource.getMessage(e.getClass().getSimpleName().concat(".").concat(e.getAnswer().getValue()), null, Locale.ENGLISH));

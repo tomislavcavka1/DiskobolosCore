@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Tomislav Čavka
  */
-public class TermsOfConditionDto {
+public class TermsOfCompetitionDto {
 
     private Integer id;
 

@@ -6,6 +6,8 @@
 package hr.diskobolos.persistence;
 
 import hr.diskobolos.model.evaluation.EvaluationQuestionDef;
+import hr.diskobolos.model.evaluation.QuestionnaireType;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,5 @@ import hr.diskobolos.model.evaluation.EvaluationQuestionDef;
  */
 public interface IEvaluationQuestionDefPersistence extends IJpaDaoPersistence<EvaluationQuestionDef, Integer> {
 
+    List<EvaluationQuestionDef> findByQuestionnanireType(QuestionnaireType questionnaireType);
 }
