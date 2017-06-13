@@ -131,6 +131,7 @@ create table diskobolos.evaluation_question_def (
 	id int8 NOT NULL DEFAULT nextval('diskobolos.evaluation_question_def_id_seq'::regclass),	
 	question int8 not null unique,	
 	value_type int8,
+	questionnaire int8,
 	mandatory boolean,
 	default_value varchar(100),
 	CONSTRAINT pk_evaluation_question_def PRIMARY KEY (id)
