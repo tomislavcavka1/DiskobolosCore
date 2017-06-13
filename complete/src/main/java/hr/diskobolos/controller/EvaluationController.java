@@ -153,7 +153,7 @@ public class EvaluationController {
         List<EvaluationAnswer> evaluationAnswers = evaluationAnswerService.findAllByMemberRegisterAndQuestionnaireType(memberRegister, QuestionnaireType.getInstance(questionnaireType));
 
         evaluationAnswers.forEach((EvaluationAnswer e) -> {
-            e.getAnswer().setValue(messageSource.getMessage(e.getClass().getSimpleName().concat(".").concat(e.getAnswer().getValue()), null, Locale.ENGLISH));
+            e.getAnswer().setValue(e.getAnswer().getValue());
         });
 
         JSONArray evaluationAnswersJson = jsonMapper.getJSONArray(evaluationAnswers);
