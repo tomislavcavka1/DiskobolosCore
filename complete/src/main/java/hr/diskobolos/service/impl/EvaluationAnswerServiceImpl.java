@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.service.impl;
 
+import hr.diskobolos.dto.CategorizationOfSportsPerSportClubDto;
 import hr.diskobolos.dto.RankingAndCategorizationOfSportsDto;
 import hr.diskobolos.dto.TermsOfCompetitionDto;
 import hr.diskobolos.model.IIdentifier;
@@ -92,7 +93,7 @@ public class EvaluationAnswerServiceImpl implements IEvaluationAnswerService {
         TermsOfCompetitionDto termsOfCompetitionDto = new TermsOfCompetitionDto();
         termsOfCompetitionDto.setId(memberRegister.getId());
         termsOfCompetitionDto.setName(memberRegister.getName());
-        termsOfCompetitionDto.setAddress(memberRegister.getAddress());
+        termsOfCompetitionDto.setAddress(memberRegister.getLocation().getAddress());
         termsOfCompetitionDto.setRegisterNumber(memberRegister.getRegisterNumber());
         termsOfCompetitionDto.setRegistrationDate(memberRegister.getRegistrationDate());
 
@@ -167,5 +168,58 @@ public class EvaluationAnswerServiceImpl implements IEvaluationAnswerService {
         rankingAndCategorizationOfSportsDto.setTotalPoints(totalPoints);
 
         return rankingAndCategorizationOfSportsDto;
+    }
+
+    @Override
+    public CategorizationOfSportsPerSportClubDto fetchCategorizationOfSportsPerSportClubByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType) {
+        CategorizationOfSportsPerSportClubDto categorizationOfSportsPerSportClubDto = new CategorizationOfSportsPerSportClubDto();
+        categorizationOfSportsPerSportClubDto.setId(memberRegister.getId());
+        categorizationOfSportsPerSportClubDto.setName(memberRegister.getName());
+
+        List<EvaluationAnswer> evaluationAnswers = evaluationAnswerPersistence.findAllByMemberRegisterAndQuestionnaireType(memberRegister, questionnaireType);
+        Integer totalPoints = 0;
+
+        if (!evaluationAnswers.isEmpty()) {
+
+            totalPoints = evaluationAnswers.stream().mapToInt(e -> Integer.valueOf(e.getAnswer().getValue())).sum();
+
+            evaluationAnswers.forEach((EvaluationAnswer e) -> {
+                EvaluationQuestionnaireDefEnum question = e.getAnswer().getEvaluationQuestionDef().getQuestion();
+                switch (question) {
+                    case CATEGORIZATION_ACCORDING_TO_NUMBER_OF_REGISTERED_CLUBS_IN_NATIONAL_FEDERATION:
+                        categorizationOfSportsPerSportClubDto.setCategorizationOnNationalFederationLevel(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_BY_TYPE_OF_SPORT:
+                        categorizationOfSportsPerSportClubDto.setCategorizationOnSportTypeLevel(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_ACCORDING_TO_AGE_CATEGORIES:
+                        categorizationOfSportsPerSportClubDto.setCategorizationAccordingToAge(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_ACCORDING_TO_RANK_OF_COMPETITION_SYSTEM:
+                        categorizationOfSportsPerSportClubDto.setCategorizationOnCompetitionSystemLevel(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_ACCORDING_TO_NUMBER_OF_TEAM_MEMBERS_COMPETING:
+                        categorizationOfSportsPerSportClubDto.setCategorizationBasedOnNumberOfTeamMembersCompeting(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_ACCORDING_TO_MASS_IN_SPORTS_SCHOOLS:
+                        categorizationOfSportsPerSportClubDto.setCategorizationAccordingToMassInSportsSchools(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_ACCORDING_TO_PROFESSIONAL_STAFF:
+                        categorizationOfSportsPerSportClubDto.setCategorizationAccordingToProfessionalStaff(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case CATEGORIZATION_ACCORDING_TO_TRADITION_OF_TOWN_ZADAR:
+                        categorizationOfSportsPerSportClubDto.setCategorizationAccordingToTraditionOfTownZadar(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    case COFFICIENCY_OF_SPORTS_CATEGORY:
+                        categorizationOfSportsPerSportClubDto.setCofficiencyOfSportsCategory(Integer.valueOf(e.getAnswer().getValue()));
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+        categorizationOfSportsPerSportClubDto.setTotalPoints(totalPoints);
+
+        return categorizationOfSportsPerSportClubDto;
     }
 }

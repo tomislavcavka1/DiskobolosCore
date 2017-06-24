@@ -11,7 +11,8 @@ package hr.diskobolos.model.evaluation;
  */
 public enum QuestionnaireType {
     TERMS_OF_CONDITION,
-    RANKING_AND_CATEGORIZATION_OF_SPORTS;
+    RANKING_AND_CATEGORIZATION_OF_SPORTS,
+    CATEGORIZATION_OF_SPORTS_PER_SPORT_CLUB;
 
     public String getName() {
         return this.name();

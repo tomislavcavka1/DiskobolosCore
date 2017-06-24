@@ -5,7 +5,6 @@
  */
 package hr.diskobolos.model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +31,9 @@ public class MembershipCategory implements IIdentifier {
 
     private String description;
 
+    @Column(name = "HTML_COLOR")
+    private String htmlColor;
+
     @Override
     public Integer getId() {
         return id;
@@ -47,6 +49,14 @@ public class MembershipCategory implements IIdentifier {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getHtmlColor() {
+        return htmlColor;
+    }
+
+    public void setHtmlColor(String htmlColor) {
+        this.htmlColor = htmlColor;
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.controller;
 
+import hr.diskobolos.dto.leaflet.GeoJsonDto;
 import hr.diskobolos.model.Location;
 import hr.diskobolos.service.ILocationService;
 import hr.diskobolos.util.JSONMapper;
@@ -50,6 +51,16 @@ public class LocationController {
         List<Location> locations = locationService.findAll();
         JSONArray locationsJson = jsonMapper.getJSONArray(locations);
         resultMap.put("locations", locationsJson);
+        return resultMap.toString();
+    }
+
+    @RequestMapping(value = "/fetchGeographicalData", method = RequestMethod.GET)
+    @ResponseBody
+    public String getGeoJsonObj() {
+        JSONObject resultMap = new JSONObject();
+        GeoJsonDto geoJsonDto = locationService.fetchGeographicalData();
+        JSONObject geoJsonObj = jsonMapper.getJSONObject(geoJsonDto);
+        resultMap.put("geoJsonObj", geoJsonObj);
         return resultMap.toString();
     }
 }

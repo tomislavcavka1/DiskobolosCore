@@ -18,7 +18,6 @@ import hr.diskobolos.service.IMemberRegisterService;
 import hr.diskobolos.util.ErrorHandlerUtils;
 import hr.diskobolos.util.JSONMapper;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,9 +61,6 @@ public class EvaluationController {
 
     @Autowired
     IConverter<EvaluationQuestionDef, EvaluationDto> evaluationConverter;
-
-    @Autowired
-    private MessageSource messageSource;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
@@ -134,6 +129,11 @@ public class EvaluationController {
             case RANKING_AND_CATEGORIZATION_OF_SPORTS:
                 evaluationQuestionDefDto = memberRegisters.stream()
                         .map(m -> evaluationAnswerService.fetchRankingAndCategorizationOfSportsByMemberRegisterAndQuestionnaireType(m, QuestionnaireType.RANKING_AND_CATEGORIZATION_OF_SPORTS))
+                        .collect(Collectors.toList());
+                break;
+            case CATEGORIZATION_OF_SPORTS_PER_SPORT_CLUB:
+                evaluationQuestionDefDto = memberRegisters.stream()
+                        .map(m -> evaluationAnswerService.fetchCategorizationOfSportsPerSportClubByMemberRegisterAndQuestionnaireType(m, QuestionnaireType.CATEGORIZATION_OF_SPORTS_PER_SPORT_CLUB))
                         .collect(Collectors.toList());
                 break;
             default:

@@ -5,13 +5,13 @@
  */
 package hr.diskobolos.model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,10 +30,22 @@ public class Location implements IIdentifier {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diskobolos.location_id_seq")
     private Integer id;
 
+    @Column(name = "COUNTRY_CODE")
+    private String countryCode;
+
+    private String address;
+
+    private Float latitude;
+
+    private Float longitude;
+
     @Column(name = "POSTAL_CODE")
     private Integer postalCode;
 
-    private String name;
+    private String city;
+
+    @OneToOne(mappedBy = "location")
+    private MemberRegister memberRegister;
 
     @Override
     public Integer getId() {
@@ -44,6 +56,38 @@ public class Location implements IIdentifier {
         this.id = id;
     }
 
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
     public Integer getPostalCode() {
         return postalCode;
     }
@@ -52,11 +96,19 @@ public class Location implements IIdentifier {
         this.postalCode = postalCode;
     }
 
-    public String getName() {
-        return name;
+    public String getCity() {
+        return city;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public MemberRegister getMemberRegister() {
+        return memberRegister;
+    }
+
+    public void setMemberRegister(MemberRegister memberRegister) {
+        this.memberRegister = memberRegister;
     }
 }

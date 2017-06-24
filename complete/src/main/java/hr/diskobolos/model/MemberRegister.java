@@ -5,7 +5,6 @@
  */
 package hr.diskobolos.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -43,9 +42,7 @@ public class MemberRegister implements IIdentifier {
 
     private String name;
 
-    private String address;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
 
@@ -113,15 +110,7 @@ public class MemberRegister implements IIdentifier {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    }    
 
     public Location getLocation() {
         return location;

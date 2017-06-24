@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.service;
 
+import hr.diskobolos.dto.CategorizationOfSportsPerSportClubDto;
 import hr.diskobolos.dto.RankingAndCategorizationOfSportsDto;
 import hr.diskobolos.dto.TermsOfCompetitionDto;
 import hr.diskobolos.model.MemberRegister;
@@ -23,4 +24,6 @@ public interface IEvaluationAnswerService extends IJpaDaoService<EvaluationAnswe
     TermsOfCompetitionDto fetchTermsOfCompetitionByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
 
     RankingAndCategorizationOfSportsDto fetchRankingAndCategorizationOfSportsByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
+
+    CategorizationOfSportsPerSportClubDto fetchCategorizationOfSportsPerSportClubByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
 }
