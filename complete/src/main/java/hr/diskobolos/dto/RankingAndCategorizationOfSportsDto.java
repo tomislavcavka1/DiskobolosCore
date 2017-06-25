@@ -39,6 +39,8 @@ public class RankingAndCategorizationOfSportsDto {
 
     private Integer totalPoints;
 
+    private Float questionnairePercentage;
+
     public Integer getId() {
         return id;
     }
@@ -149,6 +151,14 @@ public class RankingAndCategorizationOfSportsDto {
 
     public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
+    }
+
+    public Float getQuestionnairePercentage() {
+        return questionnairePercentage;
+    }
+
+    public void setQuestionnairePercentage(Float questionnairePercentage) {
+        this.questionnairePercentage = questionnairePercentage;
     }
 
 }

@@ -16,6 +16,7 @@ import hr.diskobolos.model.evaluation.QuestionnaireType;
 import hr.diskobolos.model.evaluation.TermsOfConditionStatus;
 import hr.diskobolos.persistence.IEvaluationAnswerPersistence;
 import hr.diskobolos.service.IEvaluationAnswerService;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -101,6 +102,7 @@ public class EvaluationAnswerServiceImpl implements IEvaluationAnswerService {
 
         List<EvaluationQuestionnaireDefEnum> questionnaireDef = Arrays.asList(EvaluationQuestionnaireDefEnum.values());
         Long numberOfQuestion = questionnaireDef.stream().filter(q -> q.getQuestionnaireType().equals(QuestionnaireType.TERMS_OF_CONDITION)).collect(Collectors.counting());
+        termsOfCompetitionDto.setQuestionnairePercentage(getQuestionnairePercentage(evaluationAnswers, numberOfQuestion, questionnaireDef));
 
         TermsOfConditionStatus termsOfConditionStatus = TermsOfConditionStatus.NONE;
         if (!evaluationAnswers.isEmpty() && evaluationAnswers.size() == numberOfQuestion) {
@@ -165,6 +167,11 @@ public class EvaluationAnswerServiceImpl implements IEvaluationAnswerService {
                 }
             });
         }
+
+        List<EvaluationQuestionnaireDefEnum> questionnaireDef = Arrays.asList(EvaluationQuestionnaireDefEnum.values());
+        Long numberOfQuestion = questionnaireDef.stream().filter(q -> q.getQuestionnaireType().equals(QuestionnaireType.RANKING_AND_CATEGORIZATION_OF_SPORTS)).collect(Collectors.counting());
+        rankingAndCategorizationOfSportsDto.setQuestionnairePercentage(getQuestionnairePercentage(evaluationAnswers, numberOfQuestion, questionnaireDef));
+
         rankingAndCategorizationOfSportsDto.setTotalPoints(totalPoints);
 
         return rankingAndCategorizationOfSportsDto;
@@ -218,8 +225,19 @@ public class EvaluationAnswerServiceImpl implements IEvaluationAnswerService {
                 }
             });
         }
+
+        List<EvaluationQuestionnaireDefEnum> questionnaireDef = Arrays.asList(EvaluationQuestionnaireDefEnum.values());
+        Long numberOfQuestion = questionnaireDef.stream().filter(q -> q.getQuestionnaireType().equals(QuestionnaireType.CATEGORIZATION_OF_SPORTS_PER_SPORT_CLUB)).collect(Collectors.counting());
+        categorizationOfSportsPerSportClubDto.setQuestionnairePercentage(getQuestionnairePercentage(evaluationAnswers, numberOfQuestion, questionnaireDef));
+
         categorizationOfSportsPerSportClubDto.setTotalPoints(totalPoints);
 
         return categorizationOfSportsPerSportClubDto;
+    }
+
+    private Float getQuestionnairePercentage(List<EvaluationAnswer> evaluationAnswers, Long numberOfQuestion, List<EvaluationQuestionnaireDefEnum> questionnaireDef) {
+        Long numberOfAnsweredQuestions = evaluationAnswers.stream().filter(e -> questionnaireDef.contains(e.getAnswer().getEvaluationQuestionDef().getQuestion())).collect(Collectors.counting());
+        Float questionnairePercentage = ((float) numberOfAnsweredQuestions / numberOfQuestion) * 100;
+        return new BigDecimal(Float.toString(questionnairePercentage)).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
     }
 }

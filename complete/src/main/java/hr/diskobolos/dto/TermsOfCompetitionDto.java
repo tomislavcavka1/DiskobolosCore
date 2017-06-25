@@ -25,6 +25,8 @@ public class TermsOfCompetitionDto {
 
     private String termsOfConditionStatus;
 
+    private Float questionnairePercentage;
+
     public Integer getId() {
         return id;
     }
@@ -72,4 +74,13 @@ public class TermsOfCompetitionDto {
     public void setTermsOfConditionStatus(String termsOfConditionStatus) {
         this.termsOfConditionStatus = termsOfConditionStatus;
     }
+
+    public Float getQuestionnairePercentage() {
+        return questionnairePercentage;
+    }
+
+    public void setQuestionnairePercentage(Float questionnairePercentage) {
+        this.questionnairePercentage = questionnairePercentage;
+    }
+
 }
