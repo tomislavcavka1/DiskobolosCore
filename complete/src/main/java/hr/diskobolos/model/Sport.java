@@ -5,7 +5,6 @@
  */
 package hr.diskobolos.model;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -24,7 +24,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SPORT", schema = "DISKOBOLOS")
-@NamedQuery(name = "Sport.findAll", query = "SELECT s FROM Sport s")
+@NamedQueries({
+    @NamedQuery(name = "Sport.findAll", query = "SELECT s FROM Sport s"),
+    @NamedQuery(name = "Sport.getNumberOfSports", query = "SELECT COUNT(s) FROM Sport s")})
 public class Sport implements ISport {
 
     @Id

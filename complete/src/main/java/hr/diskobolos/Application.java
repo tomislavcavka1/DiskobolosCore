@@ -1,5 +1,6 @@
 package hr.diskobolos;
 
+import hr.diskobolos.util.AutowireHelper;
 import java.util.Locale;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -51,5 +52,10 @@ public class Application {
         source.setBasenames("i18n/messages");
         source.setUseCodeAsDefaultMessage(true);
         return source;
+    }
+
+    @Bean
+    public AutowireHelper autowireHelper() {
+        return AutowireHelper.getInstance();
     }
 }

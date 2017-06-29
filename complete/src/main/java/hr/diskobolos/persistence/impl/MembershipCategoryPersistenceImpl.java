@@ -23,4 +23,9 @@ public class MembershipCategoryPersistenceImpl extends ADaoPersistenceImpl<Membe
         return MembershipCategory.class;
     }
 
+    @Override
+    public Long getNumberOfMembershipCategories() {
+        return entityManager.createNamedQuery(getType().getSimpleName() + ".getNumberOfMembershipCategories", Long.class).getSingleResult();
+    }
+
 }

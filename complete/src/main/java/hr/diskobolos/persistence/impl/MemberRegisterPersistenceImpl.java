@@ -23,4 +23,8 @@ public class MemberRegisterPersistenceImpl extends ADaoPersistenceImpl<MemberReg
         return MemberRegister.class;
     }
 
+    @Override
+    public Long getNumberOfMemberRegisters() {
+        return entityManager.createNamedQuery(getType().getSimpleName() + ".getNumberOfMemberRegisters", Long.class).getSingleResult();
+    }
 }

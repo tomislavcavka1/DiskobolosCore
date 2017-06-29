@@ -8,7 +8,11 @@ package hr.diskobolos.persistence;
 import hr.diskobolos.model.MemberRegister;
 import hr.diskobolos.model.evaluation.EvaluationAnswer;
 import hr.diskobolos.model.evaluation.QuestionnaireType;
+import hr.diskobolos.model.evaluation.TermsOfConditionStatus;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *
@@ -17,4 +21,12 @@ import java.util.List;
 public interface IEvaluationAnswerPersistence extends IJpaDaoPersistence<EvaluationAnswer, Integer> {
 
     List<EvaluationAnswer> findAllByMemberRegisterAndQuestionnaireType(MemberRegister memberRegister, QuestionnaireType questionnaireType);
+
+    List<EvaluationAnswer> findAllByQuestionnaireType(QuestionnaireType questionnaireType);
+
+    Map<MemberRegister, Integer> fetchTotalPointsPerMemberRegister(QuestionnaireType questionnaireType);
+
+    Long fetchNumberOfMemberRegistersWithoutTerms();
+
+    ConcurrentMap<TermsOfConditionStatus, AtomicLong> fetchTermsOfCompetitionStatistic();
 }

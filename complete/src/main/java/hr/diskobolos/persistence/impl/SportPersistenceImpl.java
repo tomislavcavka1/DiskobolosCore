@@ -18,4 +18,8 @@ public class SportPersistenceImpl extends ADaoPersistenceImpl<Sport, Integer> im
         return Sport.class;
     }
 
+    @Override
+    public Long getNumberOfSports() {
+        return entityManager.createNamedQuery(getType().getSimpleName() + ".getNumberOfSports", Long.class).getSingleResult();
+    }
 }

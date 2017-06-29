@@ -14,4 +14,5 @@ import hr.diskobolos.model.MemberRegister;
  */
 public interface IMemberRegisterPersistence extends IJpaDaoPersistence<MemberRegister, Integer> {
 
+    Long getNumberOfMemberRegisters();
 }

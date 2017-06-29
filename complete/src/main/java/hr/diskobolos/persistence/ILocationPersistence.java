@@ -14,4 +14,5 @@ import hr.diskobolos.model.Location;
  */
 public interface ILocationPersistence extends IJpaDaoPersistence<Location, Integer> {
 
+    Location findByAddress(String address);
 }

@@ -31,7 +31,8 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "MEMBER_REGISTER", schema = "DISKOBOLOS")
 @NamedQueries({
-    @NamedQuery(name = "MemberRegister.findAll", query = "SELECT m FROM MemberRegister m")})
+    @NamedQuery(name = "MemberRegister.findAll", query = "SELECT m FROM MemberRegister m"),
+    @NamedQuery(name = "MemberRegister.getNumberOfMemberRegisters", query = "SELECT COUNT(m) FROM MemberRegister m")})
 public class MemberRegister implements IIdentifier {
 
     @Id
@@ -110,7 +111,7 @@ public class MemberRegister implements IIdentifier {
 
     public void setName(String name) {
         this.name = name;
-    }    
+    }
 
     public Location getLocation() {
         return location;

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -21,7 +22,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "LOCATION", schema = "DISKOBOLOS")
-@NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
+@NamedQueries({
+    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l"),
+    @NamedQuery(name = "Location.findByAddress", query = "SELECT l FROM Location l WHERE l.address = :address")})
 public class Location implements IIdentifier {
 
     @Id

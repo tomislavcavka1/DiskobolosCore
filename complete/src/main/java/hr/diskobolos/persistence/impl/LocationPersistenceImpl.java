@@ -7,6 +7,7 @@ package hr.diskobolos.persistence.impl;
 
 import hr.diskobolos.model.Location;
 import hr.diskobolos.persistence.ILocationPersistence;
+import javax.persistence.NoResultException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,17 @@ public class LocationPersistenceImpl extends ADaoPersistenceImpl<Location, Integ
     @Override
     protected Class<Location> getType() {
         return Location.class;
+    }
+
+    @Override
+    public Location findByAddress(String address) {
+        try {
+            return entityManager.createNamedQuery(getType().getSimpleName() + ".findByAddress", getType())
+                    .setParameter("address", address)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 }
