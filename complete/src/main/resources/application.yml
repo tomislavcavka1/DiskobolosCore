@@ -33,3 +33,13 @@ spring:
     show-sql: true
   jdbc:     
     batch_size: 30
+
+  hibernate:
+     c3p0:
+       # C3P0 connection pool
+       timeout: 600
+       maxIdleTimeExcessConnections: 20
+       # Connection testing settings
+       validate: false
+       idle_test_period: 30
+       automaticTestTable: conTestTable

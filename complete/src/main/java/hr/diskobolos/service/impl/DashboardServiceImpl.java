@@ -77,8 +77,8 @@ public class DashboardServiceImpl implements IDashboardService {
 
         long totalNumberOfUnfulfilledQuestionnaires = (termsOfCompetitionStatistic.get(TermsOfConditionStatus.NONE) != null ? termsOfCompetitionStatistic.get(TermsOfConditionStatus.NONE).longValue() : 0) + numberOfMemberRegistersWithoutTerms;
         termsOfCompetitionStatisticData.setNumberOfUnfulfilledTerms(totalNumberOfUnfulfilledQuestionnaires);
-        termsOfCompetitionStatisticData.setNumberOfMembersWithValidTerms(termsOfCompetitionStatistic.get(TermsOfConditionStatus.VALID).longValue());
-        termsOfCompetitionStatisticData.setNumberOfMembersWithInvalidTerms(termsOfCompetitionStatistic.get(TermsOfConditionStatus.INVALID).longValue());
+        termsOfCompetitionStatisticData.setNumberOfMembersWithValidTerms((termsOfCompetitionStatistic.get(TermsOfConditionStatus.VALID) != null ? termsOfCompetitionStatistic.get(TermsOfConditionStatus.VALID).longValue() : 0));
+        termsOfCompetitionStatisticData.setNumberOfMembersWithInvalidTerms((termsOfCompetitionStatistic.get(TermsOfConditionStatus.INVALID) != null ? termsOfCompetitionStatistic.get(TermsOfConditionStatus.INVALID).longValue() : 0));
         return termsOfCompetitionStatisticData;
     }
 
