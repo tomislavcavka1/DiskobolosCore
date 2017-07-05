@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -45,6 +46,7 @@ public class MemberRegister implements IIdentifier {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "LOCATION_ID")
+    @JsonManagedReference
     private Location location;
 
     private String phone1;
@@ -85,9 +87,11 @@ public class MemberRegister implements IIdentifier {
     private MembershipCategory membershipCategory;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
+    @JsonManagedReference
     private List<Email> emails;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
+    @JsonManagedReference
     private List<BankAccount> bankAccounts;
 
     @Transient

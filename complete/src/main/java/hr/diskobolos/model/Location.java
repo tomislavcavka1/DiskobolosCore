@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,6 +49,7 @@ public class Location implements IIdentifier {
     private String city;
 
     @OneToOne(mappedBy = "location")
+    @JsonBackReference
     private MemberRegister memberRegister;
 
     @Override

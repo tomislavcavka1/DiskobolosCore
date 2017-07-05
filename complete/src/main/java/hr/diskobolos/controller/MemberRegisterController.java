@@ -5,16 +5,19 @@
  */
 package hr.diskobolos.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hr.diskobolos.model.MemberRegister;
 import hr.diskobolos.service.IBankAccountService;
 import hr.diskobolos.service.IEmailService;
 import hr.diskobolos.service.IMemberRegisterService;
 import hr.diskobolos.util.ErrorHandlerUtils;
 import hr.diskobolos.util.JSONMapper;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -55,12 +58,12 @@ public class MemberRegisterController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-    public String fetchAllMemberRegisters() {
-        JSONObject resultMap = new JSONObject();
+    public String fetchAllMemberRegisters() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> resultMap = new HashMap<>();
         List<MemberRegister> memberRegisters = memberRegisterService.findAll();
-        JSONArray memberRegistersJson = jsonMapper.getJSONArray(memberRegisters);
-        resultMap.put("memberRegisters", memberRegistersJson);
-        return resultMap.toString();
+        resultMap.put("memberRegisters", memberRegisters);
+        return mapper.writeValueAsString(resultMap);
     }
 
     /**

@@ -5,7 +5,7 @@
  */
 package hr.diskobolos.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -49,6 +49,7 @@ public class BankAccount implements IIdentifier {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_REGISTER_ID", referencedColumnName = "ID")
+    @JsonBackReference
     private MemberRegister memberRegister;
 
     @Override
