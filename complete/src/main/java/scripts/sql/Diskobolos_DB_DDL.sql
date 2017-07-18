@@ -202,6 +202,25 @@ create table diskobolos.authorities (
 	CONSTRAINT fk_authorities_users FOREIGN KEY (user_id) REFERENCES diskobolos.users(id)
 );
 
+CREATE SEQUENCE diskobolos.financial_resources_id_seq
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+START 1;
+
+CREATE TABLE diskobolos.financial_resources (
+	id int8 NOT NULL DEFAULT nextval('diskobolos.financial_resources_id_seq'::regclass),
+	member_register_id int8 not null,	
+	amount decimal(15,6) null,
+	created_on date not null default current_timestamp,
+	last_update_on date,	
+	CONSTRAINT pk_financial_resources PRIMARY KEY (id),
+	CONSTRAINT fk_financial_resources_member_register FOREIGN KEY (member_register_id) REFERENCES diskobolos.member_register(id)
+)
+WITH (
+	OIDS=FALSE
+);
+
 -- inserting data into location
 insert into diskobolos.location (country_code, address, latitude, longitude, postal_code, city) values ('HR', 'Stomorica 7', 44.113519, 15.225152, 23000, 'Zadar');
 insert into diskobolos.location (country_code, address, latitude, longitude, postal_code, city) values ('HR', 'Edvina Androvića 2', 44.121359, 15.242531, 23000, 'Zadar');
