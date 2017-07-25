@@ -49,11 +49,9 @@ public class MemberRegister implements IIdentifier {
     @JsonManagedReference
     private Location location;
 
-    private String phone1;
-
-    private String phone2;
-
-    private String fax;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
+    @JsonManagedReference
+    private List<Phone> phones; 
 
     @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
@@ -125,28 +123,12 @@ public class MemberRegister implements IIdentifier {
         this.location = location;
     }
 
-    public String getPhone1() {
-        return phone1;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
-    }
-
-    public String getPhone2() {
-        return phone2;
-    }
-
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 
     public String getIdentificationNumber() {
