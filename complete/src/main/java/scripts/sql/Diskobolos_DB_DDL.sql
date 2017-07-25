@@ -1,4 +1,6 @@
--- DROP SEQUENCE diskobolos.member_register_id_seq;
+-- DDL for full database initialization
+
+CREATE SCHEMA IF NOT EXISTS diskobolos AUTHORIZATION postgres;
 
 CREATE SEQUENCE diskobolos.location_id_seq
 INCREMENT BY 1
