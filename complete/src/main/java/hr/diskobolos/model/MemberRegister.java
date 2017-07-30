@@ -6,6 +6,7 @@
 package hr.diskobolos.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import hr.diskobolos.dto.PhoneDto;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -51,7 +52,7 @@ public class MemberRegister implements IIdentifier {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
     @JsonManagedReference
-    private List<Phone> phones; 
+    private List<Phone> phones;
 
     @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
@@ -83,6 +84,10 @@ public class MemberRegister implements IIdentifier {
     @OneToOne
     @JoinColumn(name = "MEMBERSHIP_CATEGORY")
     private MembershipCategory membershipCategory;
+    
+    @OneToOne
+    @JoinColumn(name = "SPORT_CATEGORY")
+    private Sport sportCategory;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
     @JsonManagedReference
@@ -91,6 +96,12 @@ public class MemberRegister implements IIdentifier {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
     @JsonManagedReference
     private List<BankAccount> bankAccounts;
+
+    @Transient
+    private List<PhoneDto> phonesDto;
+
+    @Transient
+    private List<Phone> removedPhones;
 
     @Transient
     private List<Email> removedEmails;
@@ -211,6 +222,14 @@ public class MemberRegister implements IIdentifier {
         this.membershipCategory = membershipCategory;
     }
 
+    public Sport getSportCategory() {
+        return sportCategory;
+    }
+
+    public void setSportCategory(Sport sportCategory) {
+        this.sportCategory = sportCategory;
+    }
+    
     public List<Email> getEmails() {
         return emails;
     }
@@ -225,6 +244,22 @@ public class MemberRegister implements IIdentifier {
 
     public void setBankAccounts(List<BankAccount> bankAccounts) {
         this.bankAccounts = bankAccounts;
+    }
+
+    public List<PhoneDto> getPhonesDto() {
+        return phonesDto;
+    }
+
+    public void setPhonesDto(List<PhoneDto> phonesDto) {
+        this.phonesDto = phonesDto;
+    }
+
+    public List<Phone> getRemovedPhones() {
+        return removedPhones;
+    }
+
+    public void setRemovedPhones(List<Phone> removedPhones) {
+        this.removedPhones = removedPhones;
     }
 
     public List<Email> getRemovedEmails() {

@@ -12,5 +12,25 @@ package hr.diskobolos.model;
 public enum PhoneType {
     PHONE,
     FAX,
-    MOBILE
+    MOBILE;
+
+    private PhoneType() {
+    }
+
+    public String getName() {
+        return this.name();
+    }
+
+    public String getLocalizationKey() {
+        return this.getClass().getSimpleName() + "." + this.name();
+    }
+
+    public static PhoneType getInstance(String type) {
+        for (PhoneType method : PhoneType.values()) {
+            if (type.equals(method.getName())) {
+                return method;
+            }
+        }
+        return null;
+    }
 }

@@ -9,6 +9,7 @@ import hr.diskobolos.model.BankAccount;
 import hr.diskobolos.model.Email;
 import hr.diskobolos.model.Location;
 import hr.diskobolos.model.MembershipCategory;
+import hr.diskobolos.model.Phone;
 import java.util.List;
 
 /**
@@ -25,11 +26,7 @@ public class MemberRegisterDto {
 
     private Location location;
 
-    private String phone1;
-
-    private String phone2;
-
-    private String fax;
+    private List<Phone> phones;
 
     private String identificationNumber;
 
@@ -87,28 +84,12 @@ public class MemberRegisterDto {
         this.location = location;
     }
 
-    public String getPhone1() {
-        return phone1;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
-    }
-
-    public String getPhone2() {
-        return phone2;
-    }
-
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 
     public String getIdentificationNumber() {

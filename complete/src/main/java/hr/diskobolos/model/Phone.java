@@ -27,7 +27,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PHONE", schema = "DISKOBOLOS")
 @NamedQueries({
-    @NamedQuery(name = "Phone.findAll", query = "SELECT p FROM Phone p")})
+    @NamedQuery(name = "Phone.findAll", query = "SELECT p FROM Phone p"),
+    @NamedQuery(name = "Phone.deleteItems", query = "DELETE FROM Phone p WHERE p IN :forDeletion")})
 public class Phone implements IIdentifier {
 
     @Id

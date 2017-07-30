@@ -7,12 +7,20 @@ package hr.diskobolos.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hr.diskobolos.dto.PhoneDto;
 import hr.diskobolos.model.MemberRegister;
+import hr.diskobolos.model.Phone;
+import hr.diskobolos.model.PhoneType;
+import static hr.diskobolos.model.PhoneType.FAX;
+import static hr.diskobolos.model.PhoneType.MOBILE;
+import static hr.diskobolos.model.PhoneType.PHONE;
 import hr.diskobolos.service.IBankAccountService;
 import hr.diskobolos.service.IEmailService;
 import hr.diskobolos.service.IMemberRegisterService;
+import hr.diskobolos.service.IPhoneService;
 import hr.diskobolos.util.ErrorHandlerUtils;
 import hr.diskobolos.util.JSONMapper;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +61,9 @@ public class MemberRegisterController {
     IBankAccountService bankAccountService;
 
     @Autowired
+    IPhoneService phoneService;
+
+    @Autowired
     JSONMapper jsonMapper;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -87,7 +98,17 @@ public class MemberRegisterController {
                 bankAccounts.setMemberRegister(memberRegister);
             });
 
+            List<Phone> phones = mapPhoneDtoToPhoneModelObject(memberRegister.getPhonesDto());
+            phones.stream().forEach((phone) -> {
+                phone.setMemberRegister(memberRegister);
+            });
+            memberRegister.setPhones(phones);
+
             memberRegisterService.update(memberRegister);
+
+            if (memberRegister.getRemovedPhones() != null) {
+                phoneService.delete(memberRegister.getRemovedPhones());
+            }
 
             if (memberRegister.getRemovedEmails() != null) {
                 emailService.delete(memberRegister.getRemovedEmails());
@@ -126,11 +147,17 @@ public class MemberRegisterController {
                 bankAccounts.setMemberRegister(memberRegister);
             });
 
+            List<Phone> phones = mapPhoneDtoToPhoneModelObject(memberRegister.getPhonesDto());
+            phones.stream().forEach((phone) -> {
+                phone.setMemberRegister(memberRegister);
+            });
+            memberRegister.setPhones(phones);
+
             memberRegisterService.persist(memberRegister);
             response.setStatus(HttpServletResponse.SC_OK);
             return new JSONObject().put("result", 200).toString();
         } catch (Exception e) {
-            logger.error("Error during creation of member register data: ", e.getMessage());
+            logger.error("Error during creation of member register data: ", e.getLocalizedMessage());
             return ErrorHandlerUtils.handleAjaxError(request, response);
         }
     }
@@ -166,5 +193,42 @@ public class MemberRegisterController {
         JSONObject memberRegisterObj = jsonMapper.getJSONObject(memberRegister);
         resultMap.put("memberRegister", memberRegisterObj);
         return resultMap.toString();
+    }
+
+    private List<Phone> mapPhoneDtoToPhoneModelObject(List<PhoneDto> phonesDto) {
+        List<Phone> phones = new ArrayList<>();
+
+        for (PhoneDto phoneDto : phonesDto) {
+
+            if (phoneDto.getData() == null) {
+                continue;
+            }
+
+            for (PhoneDto.Value data : phoneDto.getData()) {
+                PhoneType phoneTypes = PhoneType.getInstance(phoneDto.getCategory());
+                Phone phone = new Phone();
+                switch (phoneTypes) {
+                    case PHONE:
+                        phone.setId(data.getId());
+                        phone.setPhoneType(PHONE);
+                        phone.setPhoneNumber(data.getText());
+                        break;
+                    case MOBILE:
+                        phone.setId(data.getId());
+                        phone.setPhoneType(MOBILE);
+                        phone.setPhoneNumber(data.getText());
+                        break;
+                    case FAX:
+                        phone.setId(data.getId());
+                        phone.setPhoneType(FAX);
+                        phone.setPhoneNumber(data.getText());
+                        break;
+                    default:
+                        break;
+                }
+                phones.add(phone);
+            }
+        }
+        return phones;
     }
 }

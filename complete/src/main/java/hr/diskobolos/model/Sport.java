@@ -5,6 +5,7 @@
  */
 package hr.diskobolos.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ public class Sport implements ISport {
     private String name;
 
     @OneToMany(targetEntity = NomenclatureOfSport.class, cascade = CascadeType.ALL, mappedBy = "sport", orphanRemoval = true)
+    @JsonManagedReference
     private List<NomenclatureOfSport> nomenclatureOfSports;
 
     @Override

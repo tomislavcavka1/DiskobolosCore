@@ -5,7 +5,7 @@
  */
 package hr.diskobolos.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -46,6 +46,7 @@ public class NomenclatureOfSport implements INomenclatureOfSport {
 
     @ManyToOne
     @JoinColumn(name = "SPORT_ID", referencedColumnName = "ID")
+    @JsonBackReference
     private Sport sport;
 
     @Override
