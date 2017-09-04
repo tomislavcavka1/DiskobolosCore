@@ -26,8 +26,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SPORT", schema = "DISKOBOLOS")
 @NamedQueries({
-    @NamedQuery(name = "Sport.findAll", query = "SELECT s FROM Sport s"),
-    @NamedQuery(name = "Sport.getNumberOfSports", query = "SELECT COUNT(s) FROM Sport s")})
+    @NamedQuery(name = "Sport.findAll", query = "SELECT s FROM Sport s WHERE s.name IS NOT NULL"),
+    @NamedQuery(name = "Sport.getNumberOfSports", query = "SELECT COUNT(s) FROM Sport s WHERE s.name IS NOT NULL"),
+    @NamedQuery(name = "Sport.findSportByName", query = "SELECT s FROM Sport s WHERE s.name = :name")})
 public class Sport implements ISport {
 
     @Id

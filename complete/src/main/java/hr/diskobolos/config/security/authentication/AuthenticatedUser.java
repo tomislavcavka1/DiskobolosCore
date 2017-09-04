@@ -11,6 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import hr.diskobolos.model.security.Authority;
 import hr.diskobolos.model.security.User;
 
+/**
+ *
+ * @author Tomislav Čavka
+ */
 public class AuthenticatedUser implements UserDetails {
 
     private final Integer id;
@@ -19,15 +23,19 @@ public class AuthenticatedUser implements UserDetails {
     private final String email;
     private final Collection<? extends GrantedAuthority> authorities;
     private final Boolean enabled;
+    private final String fullName;
+    private final Boolean accountLocked;
 
     public AuthenticatedUser(Integer id, String username, String password, String email,
-            Collection<? extends GrantedAuthority> authorities, Boolean enabled) {
+            Collection<? extends GrantedAuthority> authorities, Boolean enabled, String fullName, Boolean accountLocked) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
         this.enabled = enabled;
+        this.fullName = fullName;
+        this.accountLocked = accountLocked;
     }
 
     public static AuthenticatedUser from(User user) {
@@ -37,13 +45,15 @@ public class AuthenticatedUser implements UserDetails {
                 user.getPassword(),
                 user.getEmail(),
                 mapToGrantedAuthorities(user.getAuthorities()),
-                user.getEnabled()
+                user.isEnabled(),
+                user.getFullName(),
+                user.isAccountLocked()
         );
     }
 
     private static Set<ICustomGrantedAuthority> mapToGrantedAuthorities(Set<Authority> authorities) {
         return authorities.stream()
-                .map(authority -> new CustomGrantedAuthority(authority.getRole().name(), authority.getPermissionLevel().name()))
+                .map(authority -> new CustomGrantedAuthority(authority.getRole().name(), authority.getPermissionLevel()))
                 .collect(Collectors.toSet());
     }
 
@@ -72,7 +82,7 @@ public class AuthenticatedUser implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !accountLocked;
     }
 
     @JsonIgnore
@@ -93,4 +103,9 @@ public class AuthenticatedUser implements UserDetails {
     public String getEmail() {
         return email;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
 }

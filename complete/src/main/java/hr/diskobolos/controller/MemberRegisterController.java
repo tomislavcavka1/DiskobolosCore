@@ -88,7 +88,7 @@ public class MemberRegisterController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String editMemberRegisterData(@RequestBody MemberRegister memberRegister, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             memberRegister.getEmails().stream().forEach((email) -> {
@@ -137,7 +137,7 @@ public class MemberRegisterController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String createMemberRegisterData(@RequestBody MemberRegister memberRegister, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             memberRegister.getEmails().stream().forEach((email) -> {
@@ -173,7 +173,7 @@ public class MemberRegisterController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String deleteMemberRegisterData(@RequestBody MemberRegister memberRegister, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             memberRegisterService.delete(memberRegister);

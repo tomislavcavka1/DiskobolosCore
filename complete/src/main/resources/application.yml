@@ -27,7 +27,7 @@ spring:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: admin    
+    password: admin
   jpa:    
     database: POSTGRESQL
     show-sql: true

@@ -34,7 +34,9 @@ public class Application {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 String[] allowedOrigins = {"http://localhost:8081", "http://127.0.0.1:8081",
-                    "http://192.168.99.100:8081", "http://192.168.99.100:8081/DiskobolosPortal/"};
+                    "http://192.168.99.100:8081", "http://192.168.99.100:8081/DiskobolosPortal/",
+                    "http://212.92.211.133:8081", "http://212.92.211.133:8081/DiskobolosPortal/",
+                    "http://diskobolos-szgz.com:8081", "http://diskobolos-szgz.com:8081/DiskobolosPortal/"};
                 registry.addMapping("/**").allowedOrigins(allowedOrigins);
             }
         };

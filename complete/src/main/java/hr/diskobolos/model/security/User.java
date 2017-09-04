@@ -2,6 +2,8 @@ package hr.diskobolos.model.security;
 
 import hr.diskobolos.model.IIdentifier;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +19,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "USERS", schema = "DISKOBOLOS")
@@ -42,6 +46,20 @@ public class User implements IIdentifier, Serializable {
     @Column(name = "ENABLED")
     private Boolean enabled;
 
+    @Column(name = "FULLNAME")
+    private String fullName;
+
+    @Column(name = "ACCOUNT_LOCKED")
+    private Boolean accountLocked;
+
+    @Column(name = "LAST_LOGIN", nullable = true, insertable = false, updatable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLogin;
+
+    @Column(name = "LAST_LOGOUT", nullable = true, insertable = false, updatable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLogout;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "USER_ID")
     private Set<Authority> authorities;
@@ -50,11 +68,15 @@ public class User implements IIdentifier, Serializable {
     }
 
     public User(String username, String password, String email, Boolean enabled,
-            Set<Authority> authorities) {
+            String fullName, Boolean accountLocked, Date lastLogin, Date lastLogout, Set<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.enabled = enabled;
+        this.fullName = fullName;
+        this.accountLocked = accountLocked;
+        this.lastLogin = lastLogin;
+        this.lastLogout = lastLogout;
         this.authorities = authorities;
     }
 
@@ -83,7 +105,7 @@ public class User implements IIdentifier, Serializable {
         this.password = password;
     }
 
-    public Boolean getEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
@@ -107,34 +129,101 @@ public class User implements IIdentifier, Serializable {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof User)) {
-            return false;
-        }
+    public String getFullName() {
+        return fullName;
+    }
 
-        User user = (User) o;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-        return id != null ? id.equals(user.id) : user.id == null;
+    public Boolean isAccountLocked() {
+        return accountLocked;
+    }
+
+    public void setAccountLocked(Boolean accountLocked) {
+        this.accountLocked = accountLocked;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public Date getLastLogout() {
+        return lastLogout;
+    }
+
+    public void setLastLogout(Date lastLogout) {
+        this.lastLogout = lastLogout;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 31 * hash + Objects.hashCode(this.username);
+        hash = 31 * hash + Objects.hashCode(this.password);
+        hash = 31 * hash + Objects.hashCode(this.email);
+        hash = 31 * hash + Objects.hashCode(this.enabled);
+        hash = 31 * hash + Objects.hashCode(this.fullName);
+        hash = 31 * hash + Objects.hashCode(this.accountLocked);
+        hash = 31 * hash + Objects.hashCode(this.lastLogin);
+        hash = 31 * hash + Objects.hashCode(this.lastLogout);
+        hash = 31 * hash + Objects.hashCode(this.authorities);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.fullName, other.fullName)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.enabled, other.enabled)) {
+            return false;
+        }
+        if (!Objects.equals(this.accountLocked, other.accountLocked)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastLogin, other.lastLogin)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastLogout, other.lastLogout)) {
+            return false;
+        }
+        if (!Objects.equals(this.authorities, other.authorities)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "User{"
-                + "id=" + id
-                + ", username='" + username + '\''
-                + ", password='" + password + '\''
-                + ", email='" + email + '\''
-                + ", enabled=" + enabled
-                + ", authorities=" + authorities
-                + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", enabled=" + enabled + ", fullName=" + fullName + ", accountLocked=" + accountLocked + ", lastLogin=" + lastLogin + ", lastLogout=" + lastLogout + ", authorities=" + authorities + '}';
     }
 }

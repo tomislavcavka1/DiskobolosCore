@@ -65,7 +65,7 @@ public class MembershipCategoryController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String editMembershipCategorysData(@RequestBody MembershipCategory membershipCategory, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             membershipCategoryService.update(membershipCategory);
@@ -88,7 +88,7 @@ public class MembershipCategoryController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String createMembershipCategorysData(@RequestBody MembershipCategory membershipCategory, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             membershipCategoryService.persist(membershipCategory);
@@ -111,7 +111,7 @@ public class MembershipCategoryController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String deleteSportData(@RequestBody MembershipCategory membershipCategory, HttpServletRequest request, HttpServletResponse response) throws JSONException {
         try {
             membershipCategoryService.delete(membershipCategory);

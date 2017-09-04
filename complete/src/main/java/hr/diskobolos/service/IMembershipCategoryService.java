@@ -13,4 +13,5 @@ import hr.diskobolos.model.MembershipCategory;
  */
 public interface IMembershipCategoryService extends IJpaDaoService<MembershipCategory, Integer> {
 
+    MembershipCategory findMembershipCategoryByDescription(String description);
 }

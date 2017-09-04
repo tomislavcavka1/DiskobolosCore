@@ -8,15 +8,16 @@ package hr.diskobolos.config.security.authentication;
 import java.util.Objects;
 
 /**
+ * Class that provides custom properties for the authorized user
  *
  * @author Tomislav Čavka
  */
 public final class CustomGrantedAuthority implements ICustomGrantedAuthority {
 
     private final String role;
-    private final String permissionLevel;
+    private final Integer permissionLevel;
 
-    public CustomGrantedAuthority(String role, String permissionLevel) {
+    public CustomGrantedAuthority(String role, Integer permissionLevel) {
         this.role = role;
         this.permissionLevel = permissionLevel;
     }
@@ -27,7 +28,7 @@ public final class CustomGrantedAuthority implements ICustomGrantedAuthority {
     }
 
     @Override
-    public String getPermissionLevel() {
+    public Integer getPermissionLevel() {
         return permissionLevel;
     }
 

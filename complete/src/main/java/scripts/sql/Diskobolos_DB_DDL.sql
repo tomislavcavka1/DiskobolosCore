@@ -1,4 +1,33 @@
 -- DDL for full database initialization
+drop table IF exists diskobolos.financial_resources;
+drop table IF EXISTS diskobolos.evaluation_answer;
+drop table IF EXISTS diskobolos.bank_account;
+drop table IF EXISTS diskobolos.email;
+drop table IF EXISTS diskobolos.phone;
+drop table IF EXISTS diskobolos.member_register;
+drop table IF EXISTS diskobolos.membership_category;
+drop table IF EXISTS diskobolos.location;
+drop table IF EXISTS diskobolos.nomenclature_of_sport;
+drop table IF EXISTS diskobolos.sport;
+drop table IF EXISTS diskobolos.question_choices_def;
+drop table IF EXISTS diskobolos.evaluation_question_def;
+drop table IF exists diskobolos.authorities;
+drop table IF EXISTS diskobolos.users;
+
+drop sequence IF EXISTS diskobolos.member_register_id_seq;
+drop sequence IF EXISTS diskobolos.location_id_seq;
+drop sequence IF EXISTS diskobolos.membership_category_id_seq;
+drop sequence IF EXISTS diskobolos.sport_id_seq;
+drop sequence IF EXISTS diskobolos.bank_account_id_seq;
+drop sequence IF EXISTS diskobolos.nomenclature_of_sport_id_seq;
+drop sequence IF EXISTS diskobolos.email_id_seq;
+drop sequence IF EXISTS diskobolos.phone_id_seq;
+drop sequence IF EXISTS diskobolos.evaluation_question_def_id_seq;
+drop sequence IF EXISTS diskobolos.question_choices_def_id_seq;
+drop sequence IF EXISTS diskobolos.evaluation_answer_id_seq;
+drop sequence IF EXISTS diskobolos.users_id_seq;
+drop sequence IF EXISTS diskobolos.authorities_id_seq;
+drop sequence IF EXISTS diskobolos.financial_resources_id_seq;
 
 CREATE SCHEMA IF NOT EXISTS diskobolos AUTHORIZATION postgres;
 
@@ -199,7 +228,11 @@ create table diskobolos.users (
 	username varchar(30) not null,
 	password varchar(100) not null,	
 	email varchar(50) not null,
-	enabled bool NOT NULL,	
+	enabled bool NOT NULL,
+	fullname varchar(80) NOT NULL,
+	account_locked bool NOT NULL,
+	last_login timestamp NOT NULL DEFAULT now(),
+	last_logout timestamp NOT NULL DEFAULT now(),
 	CONSTRAINT pk_users PRIMARY KEY (id)
 );
 
@@ -1471,8 +1504,24 @@ insert into diskobolos.question_choices_def(question_id, label, value, value_typ
 insert into diskobolos.question_choices_def(question_id, label, value, value_type) values (42, 'forthCategory', '10', 'Integer');
 
 -- inserting data into users table
-insert into diskobolos.users(username, password, email, enabled) values ('test', '$2a$04$PGghSlPUBJtDCs8pMXrj0OAbJN3deO1FVUKcgheGuyQgnMN65lx5m', 'test@gmail.com', true);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('test', '$2a$04$PGghSlPUBJtDCs8pMXrj0OAbJN3deO1FVUKcgheGuyQgnMN65lx5m',  'test@gmail.com',  TRUE, 'Test User', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('daria.sinovcic', '$2a$04$Ox25yfzv3y7.YkxhQmhR/O6hCHY5wMVNi5u6eU8YrdhzSfv2TckMq',  'daria.sinovcic@hotmail.com',  TRUE, 'Daria Sinovcic', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('josip.miocic', '$2a$04$B2OwyfLTe1bVT1jmrUiVS.UCaf0T.14owCbxHlV5r1j.Kt55WN5A.',  'glavni.tajnik@szgz.hr',  TRUE, 'Josip Miočić', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('josip.vukovic', '$2a$04$uPLXVOIsgy7eMAn0fmlGbOW41OVf75/szFdfqmTQgxDF26XgX9QC2',  'josip.vukovic@szgz.hr',  TRUE, 'Josip Vuković', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('luka.peranic', '$2a$04$jGZ0XyUyH6j0uEXMiwf86eFeD8TxCGyJX81LZuoFKPhNGlxjnlzye',  'luka.peranic@grad-zadar.hr',  TRUE, 'Luka Peranić', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('marko.l.blaslov', '$2a$04$86W.KpNgjolzLeGnbcxiVeTdHsJbm3viqkWGnDHEDxqIqVBOCgY5a',  'marko.l.blaslov@szgz.hr',  TRUE, 'Marko Lorenzo Blaslov', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('ksenija.jerak', '$2a$04$Us2OELxiX3z2xOGF2M4BFekoOtjFOYrkbTs1Zu9LdaTimJv9OdvIu',  'racunovodstvo@szgz.hr',  TRUE, 'Ksenija Jerak', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('radovan.dunatov', '$2a$04$MSwz3wkZPM6D9k2JpNgIsO32JzKY143DAec4TI3A8tl31VSRnWhay',  'radovan.dunatov@grad-zadar.hr',  TRUE, 'Radovan Dunatov', FALSE);
+insert into diskobolos.users(username, password, email, enabled, fullname, account_locked) values ('snjezana.jurinic', '$2a$04$IJ/PICL5c/3cqz3tPtdQ3OlfLlmhVsX9gBkcip0Lgz2Jc0Sj4/sCq',  'snjezana.jurinic@grad-zadar.hr',  TRUE, 'Snježana Jurinić', FALSE);
 
 -- inserting data into authorities table
-insert into diskobolos.authorities(role, user_id, permission_level) values ('ROLE_USER', 1, 2);
-insert into diskobolos.authorities(role, user_id, permission_level) values ('ROLE_ADMIN', 1, 0);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_ADMIN',  (select id from diskobolos.users where username='radovan.dunatov'), 100);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_USER',  (select id from diskobolos.users where username='test'), 50);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_ADMIN',  (select id from diskobolos.users where username='test'), 100);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_USER',  (select id from diskobolos.users where username='luka.peranic'), 50);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_USER',  (select id from diskobolos.users where username='daria.sinovcic'), 50);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_USER',  (select id from diskobolos.users where username='josip.vukovic'), 50);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_USER',  (select id from diskobolos.users where username='marko.l.blaslov'), 50);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_USER',  (select id from diskobolos.users where username='ksenija.jerak'), 50);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_ADMIN',  (select id from diskobolos.users where username='josip.miocic'), 100);
+insert into diskobolos.authorities(role, user_id, permission_level) values (' ROLE_ADMIN',  (select id from diskobolos.users where username='snjezana.jurinic'), 100);

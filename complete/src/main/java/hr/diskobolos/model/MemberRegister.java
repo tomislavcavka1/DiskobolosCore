@@ -7,11 +7,13 @@ package hr.diskobolos.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hr.diskobolos.dto.PhoneDto;
+import hr.diskobolos.model.listener.MemberRegisterListener;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +33,9 @@ import javax.persistence.Transient;
  * @author Tomislav Čavka
  */
 @Entity
+@EntityListeners({
+	MemberRegisterListener.class
+})
 @Table(name = "MEMBER_REGISTER", schema = "DISKOBOLOS")
 @NamedQueries({
     @NamedQuery(name = "MemberRegister.findAll", query = "SELECT m FROM MemberRegister m"),
@@ -81,12 +86,12 @@ public class MemberRegister implements IIdentifier {
     @Column(name = "REGISTRATION_DATE")
     private Date registrationDate;
 
-    @OneToOne
-    @JoinColumn(name = "MEMBERSHIP_CATEGORY")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "MEMBERSHIP_CATEGORY", nullable = true)
     private MembershipCategory membershipCategory;
-    
-    @OneToOne
-    @JoinColumn(name = "SPORT_CATEGORY")
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "SPORT_CATEGORY", nullable = true)
     private Sport sportCategory;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberRegister", orphanRemoval = true)
@@ -229,7 +234,7 @@ public class MemberRegister implements IIdentifier {
     public void setSportCategory(Sport sportCategory) {
         this.sportCategory = sportCategory;
     }
-    
+
     public List<Email> getEmails() {
         return emails;
     }

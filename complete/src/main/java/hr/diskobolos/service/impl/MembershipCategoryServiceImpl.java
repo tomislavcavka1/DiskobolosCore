@@ -51,7 +51,7 @@ public class MembershipCategoryServiceImpl implements IMembershipCategoryService
 
     @Override
     public MembershipCategory findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return membershipCategoryPersistence.findById(id);
     }
 
     @Override
@@ -67,6 +67,11 @@ public class MembershipCategoryServiceImpl implements IMembershipCategoryService
     @Override
     public void deleteAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public MembershipCategory findMembershipCategoryByDescription(String description) {
+        return membershipCategoryPersistence.findMembershipCategoryByDescription(description);
     }
 
 }

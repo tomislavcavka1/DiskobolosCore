@@ -26,9 +26,8 @@ public class Authority implements IIdentifier, Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(name = "PERMISSION_LEVEL")
-    private RolePermissionLevel permissionLevel;
+    private Integer permissionLevel;
 
     public Authority() {
     }
@@ -51,11 +50,11 @@ public class Authority implements IIdentifier, Serializable {
         this.role = role;
     }
 
-    public RolePermissionLevel getPermissionLevel() {
+    public Integer getPermissionLevel() {
         return permissionLevel;
     }
 
-    public void setPermissionLevel(RolePermissionLevel permissionLevel) {
+    public void setPermissionLevel(Integer permissionLevel) {
         this.permissionLevel = permissionLevel;
     }
 

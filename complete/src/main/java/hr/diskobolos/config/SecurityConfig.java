@@ -15,9 +15,11 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 import hr.diskobolos.config.security.jwt.JwtAuthenticationEntryPoint;
 import hr.diskobolos.config.security.authentication.AuthenticationInfoRepository;
+import hr.diskobolos.config.security.authentication.CustomLogoutHandler;
 import hr.diskobolos.config.security.jwt.JwtAuthenticationTokenFilter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Basic Spring security configuration
@@ -34,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationInfoRepository authenticationInfoRepository;
+
+    @Autowired
+    private CustomLogoutHandler customLoginHandler;
 
     @Bean
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
@@ -76,7 +81,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/memberRegister/**").permitAll()
                 .antMatchers("/evaluation/**").permitAll()
                 .antMatchers("/dashboard/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .addLogoutHandler(customLoginHandler)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 
         // Custom JWT based security filter
         httpSecurity.addFilterAfter(authenticationTokenFilterBean(), LogoutFilter.class);

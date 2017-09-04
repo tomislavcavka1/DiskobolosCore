@@ -14,4 +14,8 @@ import hr.diskobolos.model.security.User;
 public interface IUserService extends IJpaDaoService<User, Integer> {
 
     User findByUsername(String username);
+
+    void postAuthorizationUpdate(Integer id);
+
+    void preLogoutActions(Integer id);
 }

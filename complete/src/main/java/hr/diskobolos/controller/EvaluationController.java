@@ -64,7 +64,7 @@ public class EvaluationController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String fetchAllEvaluationQuestions() {
         JSONObject resultMap = new JSONObject();
         List<EvaluationQuestionDef> evaluationQuestions = evaluationQuestionDefService.findAll();
@@ -78,7 +78,7 @@ public class EvaluationController {
 
     @RequestMapping(value = "/findAllByQuestionnaireType/{questionnaireType}", method = RequestMethod.GET)
     @ResponseBody
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String findAllByQuestionnaireType(@PathVariable String questionnaireType) {
         JSONObject resultMap = new JSONObject();
         List<EvaluationQuestionDef> evaluationQuestions = evaluationQuestionDefService.findByQuestionnanireType(QuestionnaireType.getInstance(questionnaireType));
@@ -115,7 +115,7 @@ public class EvaluationController {
 
     @RequestMapping(value = "/fetchMemberRegistersWithAssociatedEvaluations/{questionnaireType}", method = RequestMethod.GET)
     @ResponseBody
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String fetchMemberRegistersWithAssociatedEvaluations(@PathVariable String questionnaireType) {
         JSONObject resultMap = new JSONObject();
         List<?> evaluationQuestionDefDto = null;
@@ -146,7 +146,7 @@ public class EvaluationController {
 
     @RequestMapping(value = "/findAllByMemberRegisterAndQuestionnaireType/{memberRegisterId}/{questionnaireType}", method = RequestMethod.GET)
     @ResponseBody
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String findAllByMemberRegisterAndQuestionnaireType(@PathVariable Integer memberRegisterId, @PathVariable String questionnaireType) {
         JSONObject resultMap = new JSONObject();
         MemberRegister memberRegister = memberRegisterService.findById(memberRegisterId);

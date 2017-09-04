@@ -42,6 +42,8 @@ public class PasswordHashCalc implements IPasswordHashCalculator {
      * This method can be used to verify a computed hash from a plaintext (e.g.
      * during a login request) with that of a stored hash from a database. The
      * password hash from the database must be passed as the second variable.
+     * You can also verify password with the BCrypt calculator:
+     * https://www.dailycred.com/article/bcrypt-calculator
      *
      * @param password_plaintext The account's plaintext password, as provided
      * during a login request
@@ -70,8 +72,8 @@ public class PasswordHashCalc implements IPasswordHashCalculator {
     public static void main(String[] args) {
         PasswordHashCalc passwordHashCalc = new PasswordHashCalc();
 
-        String test_passwd = "abcdefghijklmnopqrstuvwxyz";
-        String test_hash = "$2a$06$.rCVZVOThsIa97pEDOxvGuRRgzG64bvtJ0938xuqzv18d3ZpQhstC";
+        String test_passwd = "3KgEpD8x";
+        String test_hash = "$2a$04$MSwz3wkZPM6D9k2JpNgIsO32JzKY143DAec4TI3A8tl31VSRnWhay";  
 
         System.out.println("Testing BCrypt Password hashing and verification");
         System.out.println("Test password: " + test_passwd);

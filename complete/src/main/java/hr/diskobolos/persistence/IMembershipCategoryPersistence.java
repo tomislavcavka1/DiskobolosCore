@@ -14,4 +14,6 @@ import hr.diskobolos.model.MembershipCategory;
 public interface IMembershipCategoryPersistence extends IJpaDaoPersistence<MembershipCategory, Integer> {
 
     Long getNumberOfMembershipCategories();
+
+    MembershipCategory findMembershipCategoryByDescription(String description);
 }

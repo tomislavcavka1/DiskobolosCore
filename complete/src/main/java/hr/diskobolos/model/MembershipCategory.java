@@ -22,8 +22,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MEMBERSHIP_CATEGORY", schema = "DISKOBOLOS")
 @NamedQueries({
-    @NamedQuery(name = "MembershipCategory.findAll", query = "SELECT m FROM MembershipCategory m"),
-    @NamedQuery(name = "MembershipCategory.getNumberOfMembershipCategories", query = "SELECT COUNT(m) FROM MembershipCategory m")})
+    @NamedQuery(name = "MembershipCategory.findAll", query = "SELECT m FROM MembershipCategory m WHERE m.description IS NOT NULL"),
+    @NamedQuery(name = "MembershipCategory.getNumberOfMembershipCategories", query = "SELECT COUNT(m) FROM MembershipCategory m WHERE m.description IS NOT NULL"),
+    @NamedQuery(name = "MembershipCategory.findMembershipCategoryByDescription", query = "SELECT m FROM MembershipCategory m WHERE m.description = :description")})
 public class MembershipCategory implements IIdentifier {
 
     @Id

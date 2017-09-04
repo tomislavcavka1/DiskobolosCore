@@ -8,10 +8,11 @@ package hr.diskobolos.config.security.authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
+ * Interface that exposes custom properties for the authorized user
  *
  * @author Tomislav Čavka
  */
 public interface ICustomGrantedAuthority extends GrantedAuthority {
 
-    String getPermissionLevel();
+    Integer getPermissionLevel();
 }

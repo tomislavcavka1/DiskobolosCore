@@ -56,6 +56,7 @@ public class LocationController {
 
     @RequestMapping(value = "/fetchGeographicalData", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public String getGeoJsonObj() {
         JSONObject resultMap = new JSONObject();
         GeoJsonDto geoJsonDto = locationService.fetchGeographicalData();

@@ -5,7 +5,7 @@
 
     <groupId>hr.diskobolos</groupId>
     <artifactId>DiskobolosCore</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
     
     <properties>
         <java.version>1.8</java.version>
@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.4.RELEASE</version>
+        <version>1.5.6.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -95,6 +95,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <wait>1000</wait>
+                    <maxAttempts>180</maxAttempts>
+                </configuration>
                 <executions>
                     <execution>
                         <id>pre-integration-test</id>

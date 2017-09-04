@@ -14,4 +14,6 @@ import hr.diskobolos.model.Sport;
 public interface ISportPersistence extends IJpaDaoPersistence<Sport, Integer> {
 
     Long getNumberOfSports();
+
+    Sport findSportByName(String name);
 }

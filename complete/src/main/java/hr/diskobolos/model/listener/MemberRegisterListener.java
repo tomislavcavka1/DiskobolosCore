@@ -5,12 +5,16 @@
  */
 package hr.diskobolos.model.listener;
 
-import hr.diskobolos.model.Location;
 import hr.diskobolos.model.MemberRegister;
-import hr.diskobolos.persistence.ILocationPersistence;
+import hr.diskobolos.model.MembershipCategory;
+import hr.diskobolos.model.Sport;
+import hr.diskobolos.service.IMembershipCategoryService;
+import hr.diskobolos.service.ISportService;
 import hr.diskobolos.util.AutowireHelper;
+import java.util.Locale;
 import javax.persistence.PrePersist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 
 /**
  *
@@ -18,19 +22,33 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class MemberRegisterListener {
 
+    private final String UNKNOWN = "UNKNOWN";
+
     @Autowired
-    ILocationPersistence locationPersistence;
+    IMembershipCategoryService membershipCategoryService;
+
+    @Autowired
+    ISportService sportService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @PrePersist
     private void beforePersistOfMemberRegister(Object object) {
-        AutowireHelper.autowire(this, this.locationPersistence);
+        AutowireHelper.autowire(this, this.membershipCategoryService, this.sportService, this.messageSource);
         if (object instanceof MemberRegister) {
-            MemberRegister memberRegister = ((MemberRegister) object);
-            Location location = locationPersistence.findByAddress(memberRegister.getLocation().getAddress());
-            if (location == null) {
-                locationPersistence.persist(memberRegister.getLocation());
+            MemberRegister memberRegister = (MemberRegister) object;
+
+            if (memberRegister.getMembershipCategory().getId() == null) {
+                MembershipCategory membershipCategory = membershipCategoryService.findMembershipCategoryByDescription(messageSource.getMessage(UNKNOWN, null, Locale.ENGLISH));
+                memberRegister.setMembershipCategory(membershipCategory);
             }
-            memberRegister.setLocation(location);
+
+            if (memberRegister.getSportCategory().getId() == null) {
+                Sport sport = sportService.findSportByName(messageSource.getMessage(UNKNOWN, null, Locale.ENGLISH));
+                memberRegister.setSportCategory(sport);
+            }
         }
     }
+
 }

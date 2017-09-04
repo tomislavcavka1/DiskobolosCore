@@ -1,15 +1,16 @@
 package hr.diskobolos.controller;
 
 import hr.diskobolos.config.security.authentication.AuthenticatedUser;
-import hr.diskobolos.config.security.authentication.AuthenticationInfoRepository;
 import hr.diskobolos.config.security.jwt.JwtTokenHandler;
 import hr.diskobolos.dto.authentication.AuthenticationRequest;
 import hr.diskobolos.dto.authentication.AuthenticationResponse;
+import hr.diskobolos.service.IUserService;
 import hr.diskobolos.service.authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,20 +32,21 @@ public class UserAuthenticationController {
     private JwtTokenHandler jwtTokenHandler;
 
     @Autowired
-    private AuthenticationInfoRepository authenticationInfoRepository;
+    private AuthenticationService authenticationService;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private IUserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws AuthenticationException {
         // Authenticate User
         authenticationService.authenticateUser(authenticationRequest);
 
+        AuthenticatedUser authenticatedUser = (AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // postauthorization update of the user
+        userService.postAuthorizationUpdate(authenticatedUser.getId());
         // Generate User's JWT token
-        AuthenticatedUser authenticatedUser = authenticationInfoRepository.loadUserByUsername(authenticationRequest.getUsername());
         String token = jwtTokenHandler.generateToken(authenticatedUser);
-
         // Return User's token
         return ResponseEntity.ok(new AuthenticationResponse(token));
     }

@@ -41,7 +41,7 @@ public class MemberRegisterServiceImpl implements IMemberRegisterService {
 
     @Override
     public <T extends IIdentifier> T save(T entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return membershipRegisterPersistence.save(entity);
     }
 
     @Override

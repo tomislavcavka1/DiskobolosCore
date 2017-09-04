@@ -13,4 +13,5 @@ import hr.diskobolos.model.Sport;
  */
 public interface ISportService extends IJpaDaoService<Sport, Integer> {
 
+    Sport findSportByName(String name);
 }

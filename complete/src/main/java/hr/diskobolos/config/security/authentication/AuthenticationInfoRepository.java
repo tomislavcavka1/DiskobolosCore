@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import hr.diskobolos.model.security.User;
 import hr.diskobolos.service.IUserService;
+import java.util.Date;
 
 /**
- * 
+ * Service that handles basic authorization for the user
+ *
  * @author Tomislav Čavka
  */
 @Service

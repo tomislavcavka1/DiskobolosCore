@@ -60,7 +60,7 @@ public class JwtTokenHandler {
                 // App is the issuer and also intended audience. User is principal subject
                 .setIssuer(appName)
                 .setAudience(appName)
-                .setSubject(user.getUsername())
+                .setSubject(user.getFullName())
                 // Setup timestamp and validity
                 .setIssuedAt(new Date())
                 .setNotBefore(new Date())
@@ -107,7 +107,7 @@ public class JwtTokenHandler {
                 .collect(Collectors.toSet());
 
         AuthenticatedUser user = new AuthenticatedUser((Integer) claims.get(userIdClaimKey), claims.getSubject(),
-                null, null, grantedAuthorities, true);
+                null, null, grantedAuthorities, true, null, false);
 
         return user;
     }
