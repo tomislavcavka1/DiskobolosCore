@@ -442,6 +442,7 @@ INSERT INTO diskobolos.membership_category (description, html_color) VALUES('ŠK
 INSERT INTO diskobolos.membership_category (description, html_color) VALUES('ZAHTJEV ZA PRIDRUŽENO ČLANSTVO', '#2E092E');
 INSERT INTO diskobolos.membership_category (description, html_color) VALUES('SPECIJALNA OLIMPIJADA', '#5F9EA0');
 INSERT INTO diskobolos.membership_category (description, html_color) VALUES('SPORTSKE AKTIVNOSTI DJECE', '#925C92');
+INSERT INTO diskobolos.membership_category (description) VALUES('UNKNOWN');
 
 
 -- inserting data into sport
@@ -561,6 +562,7 @@ insert into diskobolos.sport (name) values ( 'VESLANJE');
 insert into diskobolos.sport (name) values ( 'WUSHU');
 insert into diskobolos.sport (name) values ( 'ZRAKOPLOVSTVO');
 insert into diskobolos.sport (name) values ( 'OSTALO');
+insert into diskobolos.sport (name) values ( 'UNKNOWN');
 
 --inserting data into member_register
 insert into diskobolos.member_register (name, location_id, identification_number, oib, register_number, number_of_non_profit_org, chairman, secretary, date_from, date_to, registration_date, membership_category, sport_category) values ('Aikido klub Zadar',  1,'3639975', '35182939735','13000118', '0073359', 'Nenad Vertovšek (091/337-77-76)', 'Vesna Vertovšek (091/512-65-87)',to_date(NULLIF('01.01.2014', ''),  'DD.MM.YYYY' ),to_date(NULLIF('01.01.2018', ''),  'DD.MM.YYYY' ), to_date(NULLIF('01.01.1996', ''),  'DD.MM.YYYY' ), '1', (select id from diskobolos.sport where name = 'AIKIDO'));
