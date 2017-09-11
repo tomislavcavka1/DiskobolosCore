@@ -5,7 +5,6 @@
  */
 package hr.diskobolos.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,7 +40,6 @@ public class FinancialResources implements IIdentifier {
 
     @OneToOne
     @JoinColumn(name = "MEMBER_REGISTER_ID", referencedColumnName = "ID")
-    @JsonBackReference
     private MemberRegister memberRegister;
 
     private Double amount;
@@ -91,6 +91,12 @@ public class FinancialResources implements IIdentifier {
 
     public void setLastUpdateOn(Date lastUpdateOn) {
         this.lastUpdateOn = lastUpdateOn;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void beforeUpdate() {
+        setLastUpdateOn(new Date());
     }
 
 }
